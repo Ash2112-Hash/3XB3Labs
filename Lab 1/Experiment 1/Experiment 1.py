@@ -16,14 +16,15 @@ def conduct_AverageRuns(averageRunCount, sortingAlgFunc, target_List):
 
 # test_allSorts tests the 3 sorting algorithms for a specific amount of test_runs and plots the corresponding runtime results from each algorithm
 def test_allSorts(test_runs, average_runs, increaseList_factor):
-    list_max = 100
-    list_len = 100
+    list_max = 0
+    list_len = 0
     Insertion_times = []
     Bubble_times = []
     Selection_times = []
     list_lens = []
 
     for num in range(test_runs):
+        print()
         L = create_random_list(list_len, list_max)
         list_lens.append(len(L))
         Insertion_time_sum = conduct_AverageRuns(average_runs, insertion_sort, L)
@@ -34,6 +35,8 @@ def test_allSorts(test_runs, average_runs, increaseList_factor):
         Bubble_times.append(Bubble_time_sum / average_runs)
         Selection_times.append(Selection_time_sum/ average_runs)
         list_len += increaseList_factor
+        list_max += 100
+        print(1)
 
 
     plot.plot(list_lens, Insertion_times, marker='o', label='Insertion Sort')
@@ -42,10 +45,10 @@ def test_allSorts(test_runs, average_runs, increaseList_factor):
     plot.legend(loc='upper left', title='Sorting Algorithms', fontsize=12, facecolor='lightgray')
     plot.xlabel('List Length (n elements)')
     plot.ylabel('Runtime (seconds)')
-    plot.title('Insertion, Bubble and Selection Sort Runtime vs List Length')
+    plot.title("Bad Sorting Algorithms' Runtime vs List Length")
     plot.show()
     return Insertion_times, Bubble_times, Selection_times
 
 
 
-test_allSorts(1000, 100, 1000)
+test_allSorts(10, 10, 2000)
