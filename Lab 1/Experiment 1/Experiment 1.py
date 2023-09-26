@@ -15,7 +15,7 @@ def conduct_AverageRuns(averageRunCount, sortingAlgFunc, target_List):
     # iterates over a specified amount of runs and obtain a average runtime for the sorting algorithm
     for num in range(averageRunCount):
         start_time = timeit.default_timer()     # starts the timer
-        sortingAlgFunc(target_List)             # calls the sort alg function with the list
+        sortingAlgFunc(target_List.copy())             # calls the sort alg function with the list
         end_time = timeit.default_timer()       # ends the time
         algTime_sum += (end_time - start_time)  # adds the runtime to the algTime_sum
 
@@ -67,5 +67,5 @@ def test_allSorts(test_runs, average_runs, increaseList_factor):
     return Insertion_times, Bubble_times, Selection_times
 
 
-# calls the function to commence the test and plot the curve with the following parameters: 10 test runs, 10 average runs (for each test run) with an increasing list factor of 2000
-test_allSorts(10, 10, 2000)
+# calls the function to commence the test and plot the curve with the following parameters: 15 test runs, 30 average runs (for each test run) with an increasing list factor of 100
+test_allSorts(15, 30, 100)

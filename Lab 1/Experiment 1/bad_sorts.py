@@ -105,6 +105,3 @@ def test1_InsertionSort(test_runs, average_runs, increaseList_factor):
     plot.title('Insertion Sort Runtime vs List Length')
     plot.show()
     return list_lens, times
-
-
-test1_InsertionSort(10, 10, 1000)
