@@ -31,25 +31,30 @@ def bubble_sort2(L): #this one works fine
 # ******Selection sort******
 
 def selection_sort2(L):
-    for i in range(len(L)):
-        min_index = find_min_index(L, i)
-        max_index = find_max_index(L, i)
-        swap(L, i, min_index)
-        swap(L, i, max_index)
+    i = 0
+    j = len(L) - 1
+    while (i < j):
+        minimum = L[i]
+        maximum = L[i]
+        min_index = i
+        max_index = i
+        for k in range(i, j+1):
+            if (L[k] > maximum):
+                maximum = L[k]
+                max_index = k
+            elif (L[k] < minimum):
+                minimum = L[k]
+                min_index = k
 
-def find_min_index(L, n):
-    min_index = n
-    for i in range(n+1, len(L)):
-        if L[i] < L[min_index]:
-            min_index = i
-    return min_index
+        swap(L, i, k)
 
-def find_max_index(L, m):
-    max_index = m
-    for i in range(len(L)):
-        if L[i] > L[max_index]:
-            max_index = i
-    return max_index
+        if (L[min_index] == maximum):
+            swap(L, j, min_index)
+        else:
+            swap(L, j, max_index)
+
+        i += 1
+        j -= 1
 
 def test_allSorts(test_runs, average_runs, increaseList_factor):
     list_max = 100
