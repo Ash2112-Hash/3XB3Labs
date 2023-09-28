@@ -18,7 +18,7 @@ def insertion_sort2(L):
 
 # ******Bubble sort******
 
-def bubble_sort2(L):
+def bubble_sort2(L): #this one works fine
     for i in range(len(L)):
         swapped = False
         for j in range(0, len(L)-i-1):
@@ -62,44 +62,50 @@ def test_allSorts(test_runs, average_runs, increaseList_factor):
     Selection2_times = []
     list_lens = []
 
-    for num in range(test_runs):
+    for i in range(test_runs):
         L = bad_sorts.create_random_list(list_len, list_max)
         list_lens.append(len(L))
         Insertion_time_sum = 0
+        Insertion_L = L.copy()
         Bubble_time_sum = 0
+        Bubble_L = L.copy()
         Selection_time_sum = 0
+        Selection_L = L.copy()
         Insertion2_time_sum = 0
+        Insertion2_L = L.copy()
         Bubble2_time_sum = 0
+        Bubble2_L = L.copy()
         Selection2_time_sum = 0
+        Selection2_L = L.copy()
 
         for i in range(average_runs):
             start_1 = timeit.default_timer()
-            bad_sorts.insertion_sort(L)
+            bad_sorts.insertion_sort(Insertion_L)
             end_1 = timeit.default_timer()
             Insertion_time_sum += (end_1-start_1)
 
             start_2 = timeit.default_timer()
-            bad_sorts.bubble_sort(L)
+            bad_sorts.bubble_sort(Bubble_L)
             end_2 = timeit.default_timer()
             Bubble_time_sum += (end_2 - start_2)
 
             start_3 = timeit.default_timer()
-            bad_sorts.selection_sort(L)
+            bad_sorts.selection_sort(Selection_L)
             end_3 = timeit.default_timer()
             Selection_time_sum += (end_3 - start_3)
 
             start4 = timeit.default_timer()
-            selection_sort2(L)
+            selection_sort2(Selection2_L)
             end_4 = timeit.default_timer()
             Insertion2_time_sum += (end_4 - start4)
 
             start_5 = timeit.default_timer()
-            bubble_sort2(L)
+            bubble_sort2(Bubble2_L)
             end_5 = timeit.default_timer()
             Bubble2_time_sum += (end_5 - start_5)
 
             start_6 = timeit.default_timer()
-            selection_sort2(L)
+            selection_sort2(Selection2_L)
             end_6 = timeit.default_timer()
             Selection2_time_sum += (end_6 - start_6)
 
@@ -120,7 +126,7 @@ def test_allSorts(test_runs, average_runs, increaseList_factor):
     plt.plot(list_lens, Bubble2_times, marker='o')
     plt.xlabel('List Length')
     plt.ylabel('Runtime (seconds)')
-    plt.title('Insertion, Bubble and Selection Sort Runtime (with Improvements) vs List Length')
+    plt.title('Bad Sorts (with Their Improvements) vs List Length')
     plt.legend(['Insertion Sort', 'Selection Sort', 'Bubble Sort', 'Insertion Sort 2', 'Selection Sort 2', 'Bubble Sort 2'])
     plt.show()
     return None
