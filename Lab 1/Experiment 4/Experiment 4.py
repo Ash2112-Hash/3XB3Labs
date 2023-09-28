@@ -51,6 +51,6 @@ def test_allSorts(test_runs, average_runs, increaseList_factor):
     return None
 
 def main():
-    test_allSorts(50, 50, 8)
+    test_allSorts(15, 30, 100)
 
 main()
