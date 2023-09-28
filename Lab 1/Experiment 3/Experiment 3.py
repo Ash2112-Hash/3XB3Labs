@@ -4,31 +4,30 @@ import numpy as np
 import math
 from bad_sorts import *
 
-length = 200
-num_swaps = int(length*math.log(length)/2)
-average_runs = 50
+num_swaps = int(1000*math.log(1000,10)/2)
+average_runs = 25
 
-def test_allSorts(length, num_swaps, average_runs, sortType):
+def test_allSorts(num_swaps, average_runs, sortType):
     times = []
     swaps = []
-    time = 0
 
-    for i in range(num_swaps):
-        L = create_near_sorted_list(length, 100, i)
-        swaps.append(i)
+    for i in range(0, num_swaps, 100):
+        time = 0
 
-        for i in range(average_runs):
+        for _ in range(average_runs):
+            L = create_near_sorted_list(1000, 100, i)
             start = timeit.default_timer()
             sortType(L)
             end = timeit.default_timer()
             time += (end - start)
-
+        swaps.append(i)
         times.append(time / average_runs)
+
     return swaps, times
 
-swaps1, time1 = test_allSorts(length, num_swaps, average_runs, insertion_sort)
-swaps2, time2 = test_allSorts(length, num_swaps, average_runs, bubble_sort)
-swaps3, time3 = test_allSorts(length, num_swaps, average_runs, selection_sort)
+swaps1, time1 = test_allSorts(num_swaps, average_runs, insertion_sort)
+swaps2, time2 = test_allSorts(num_swaps, average_runs, bubble_sort)
+swaps3, time3 = test_allSorts(num_swaps, average_runs, selection_sort)
 
 swap_insertion, time_insertion = np.array(swaps1), np.array(time1)
 swap_bubble, time_bubble = np.array(swaps2), np.array(time2)
