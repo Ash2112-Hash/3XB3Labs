@@ -1,17 +1,11 @@
 # ******************* Experiment 6 Functions *******************
-# Functions designated to running experiment 8 pertaining to verifying a potential speedup of quick sort
+# Functions designated to running experiment 6 pertaining to verifying a potential speedup of quick sort
 
+# Import the necessary modules/libraries needed for experiment
 from good_sorts import quicksort
 from bad_sorts import create_random_list
 import timeit
 import matplotlib.pyplot as plot
-
-
-def print_DualQuickSortResult(L):
-    copy = dual_quicksort(L)
-    for i in range(len(L)):
-        L[i] = copy[i]
-    print(copy)
 
 
 # conduct_AverageRuns conducts an average number of runs for the specific sorting algorithm and measures the corresponding runtime of the algorithm (aginest a target list)
@@ -31,30 +25,32 @@ def conduct_AverageRuns(averageRunCount, sortingAlgFunc, target_List):
 
 # dual_quicksort(L) sorts a list using two pivots (first and second elements of the list respectively) via recursion
 def dual_quicksort(L):
-    if len(L) < 2:
+    if len(L) < 3:      # base case needed for dual quicksort, if len < 3, return the list
         return L
+
+    # assign first and second pivot to first and second elements of L respectively
     first_pivot = L[0]
     sec_pivot = L[1]
-    left, middle, right = [], [], []
+    left, middle, right = [], [], []        #create lists to store the left, right and mid portions of the L during recursion sorting
 
+    # if first pivot is greater than second pivot, swap them within L
     if(first_pivot > sec_pivot):
         first_pivot = L[1]
         sec_pivot = L[0]
 
-    # may not need this condition
-    else:
-        first_pivot = L[0]
-        sec_pivot = L[1]
-
+    # iterate through all numbers from index 2 of L to its end
     for num in L[2:]:
-        if num < first_pivot:
+        if num < first_pivot:       # if num is less than first_pivot, add it to left portion
             left.append(num)
-        elif num > sec_pivot:
+
+        elif num > sec_pivot:       # if num is greater than sec_pivot, add it to right portion
             right.append(num)
-        else:
+
+        else:                       # if num <= first pivor and num <= sec_pivot, add it to middle portion
             middle.append(num)
 
     return dual_quicksort(left) + [first_pivot] + dual_quicksort(middle) + [sec_pivot] + dual_quicksort(right)
+    # recursively sort the portions and return them in the corresponding order as final sorted L
 
 
 # DualvsSingle_QuickSort tests dual quicksort vs. normal quicksort for a specific amount of test_runs and plots the corresponding runtime results from each algorithm using matplotlib
@@ -98,9 +94,20 @@ def DualvsSingle_QuickSort(test_runs, average_runs, increaseList_factor):
     return SingleQuick_times, DualQuick_times
 
 
+# assertions used to test the validity of the dual_quicksort alg against the normal quicksort
+L = create_random_list(100, 100)
+L2 = create_random_list(1000, 10000)
+L3 = create_random_list(1000, 10000)
+L4 = create_random_list(1000, 70000)
+assert(quicksort(L) == dual_quicksort(L))
+assert(quicksort(L2) == dual_quicksort(L2))
+assert(quicksort(L3) == dual_quicksort(L3))
+assert(quicksort(L4) == dual_quicksort(L4))
+
+
 
 # calls the function to commence the test and plot the curve with the following parameters: 15 test runs, 30 average runs (for each test run) with an increasing list factor of 100
-DualvsSingle_QuickSort(15, 30, 100)
+DualvsSingle_QuickSort(20, 30, 200)
 
 
 
