@@ -1,6 +1,8 @@
 # ******************* Experiment 6 Functions *******************
 # Functions designated to running experiment 6 pertaining to verifying a potential speedup of quick sort
 
+# TODO maybe add partially sorted and sorted lists to test as well
+
 # Import the necessary modules/libraries needed for experiment
 from good_sorts import quicksort
 from bad_sorts import create_random_list
