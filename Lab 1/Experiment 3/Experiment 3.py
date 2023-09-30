@@ -29,6 +29,7 @@ def test_allSorts(sortType):
         swaps.append(i)
         times.append(time / average_runs)
 
+    #returns x and y axis
     return swaps, times
 
 # calls the function for the runtimes of the 3 sorting algorithms 
