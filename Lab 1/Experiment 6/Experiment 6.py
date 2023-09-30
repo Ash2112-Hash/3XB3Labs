@@ -89,7 +89,7 @@ def DualvsSingle_QuickSort(test_runs, average_runs, increaseList_factor):
     plot.legend(loc='upper left', title='Quicksort Algorithms', fontsize=10, facecolor='lightgray')
     plot.xlabel('List Length (n elements)')
     plot.ylabel('Runtime (seconds)')
-    plot.title("Dual and Single Quicksort's Runtime vs List Length")
+    plot.title("Dual and Single Quicksort's Runtime vs. List Length")
     plot.show()
 
     # returns the accumulated runtimes of all the sorting algs
@@ -109,7 +109,7 @@ assert(quicksort(L4) == dual_quicksort(L4))
 
 
 # calls the function to commence the test and plot the curve with the following parameters: 15 test runs, 30 average runs (for each test run) with an increasing list factor of 100
-DualvsSingle_QuickSort(20, 30, 200)
+DualvsSingle_QuickSort(25, 50, 200)
 
 
 
