@@ -31,7 +31,7 @@ def conduct_AverageRuns(averageRunCount, sortingAlgFunc, target_List):
 # Paramaters: test_runs(number of actual test runs), average_runs (number of average runs - done during each actual test run) and increaseList_factor(factor used to increase the list size)
 def test_allSorts(test_runs, average_runs, increaseList_factor):
     list_max = 100
-    list_len = 0
+    list_len = 0    #TODO DISCUSS IF THIS NEEDS TO BE REMOVED
     # declare the default max and len of list: 0
 
     # lists to store the average runtimes computed for each sorting alg as well as the increasing lengths of the list
@@ -55,7 +55,7 @@ def test_allSorts(test_runs, average_runs, increaseList_factor):
 
         # increases the list's length by a corresponding factor
         list_len += increaseList_factor
-        #list_max += 10
+        #list_max += 10     #TODO DISCUSS IF THIS NEEDS TO BE REMOVED
 
 
     # plots the runtimes of the 3 sorting algorithms with the following legends and axis titles
@@ -72,7 +72,9 @@ def test_allSorts(test_runs, average_runs, increaseList_factor):
     return Insertion_times, QuickSort_times, MergeSort_times
 
 
-# calls the function to commence the test and plot the curve with the following parameters: 15 test runs, 30 average runs (for each test run) with an increasing list factor of 100
-test_allSorts(10, 20, 10)
+# calls the function to commence the test and plot the curve with the following parameters: 10 test runs, 30 average runs (for each test run) with an increasing list factor of 1 (focusing mainly on insertion vs quick sort in this case)
+#test_allSorts(12, 30, 1)
 
 
+# calls the function to commence the test and plot the curve with the following parameters: 10 test runs, 30 average runs (for each test run) with an increasing list factor of 1 (insertion vs quick in this case)
+test_allSorts(15, 30, 5)
