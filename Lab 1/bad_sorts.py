@@ -2,10 +2,8 @@
 This file corresponds to the first graded lab of 2XC3.
 Feel free to modify and/or add functions to this file.
 """
-"""Import the following libraries required for the sort and experiment functions"""
 import random
-import timeit
-import matplotlib.pyplot as plot
+
 
 # Create a random list length "length" containing whole numbers between 0 and max_value inclusive
 def create_random_list(length, max_value):
@@ -70,4 +68,3 @@ def find_min_index(L, n):
         if L[i] < L[min_index]:
             min_index = i
     return min_index
-

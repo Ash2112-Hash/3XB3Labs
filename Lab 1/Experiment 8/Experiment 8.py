@@ -1,9 +1,13 @@
-# ******************* Experiment 1 Functions *******************
-# Functions designated to running experiment 1 involving the 3 bad sort algorithms: bubble, selection and insertion sort
+# ******************* Experiment 8 Functions *******************
+# Functions designated to running experiment 8 pertaining to compare insertion sort to merge and quick sort for small list sizes.
 
-# Imports the following libraries required for the experiment functions
+
+# TODO maybe add partially sorted lists and sorted lists to experiment 8
+
+# Import the necessary modules/libraries needed for experiment
+from good_sorts import quicksort, mergesort
+from bad_sorts import create_random_list, insertion_sort
 import timeit
-from bad_sorts import create_random_list, insertion_sort, bubble_sort, selection_sort
 import matplotlib.pyplot as plot
 
 
@@ -15,7 +19,7 @@ def conduct_AverageRuns(averageRunCount, sortingAlgFunc, target_List):
     # iterates over a specified amount of runs and obtain a average runtime for the sorting algorithm
     for num in range(averageRunCount):
         start_time = timeit.default_timer()     # starts the timer
-        sortingAlgFunc(target_List.copy())             # calls the sort alg function with the list
+        sortingAlgFunc(target_List.copy())             # calls the sort alg function with a copy of the list
         end_time = timeit.default_timer()       # ends the time
         algTime_sum += (end_time - start_time)  # adds the runtime to the algTime_sum
 
@@ -32,40 +36,43 @@ def test_allSorts(test_runs, average_runs, increaseList_factor):
 
     # lists to store the average runtimes computed for each sorting alg as well as the increasing lengths of the list
     Insertion_times = []
-    Bubble_times = []
-    Selection_times = []
+    QuickSort_times = []
+    MergeSort_times = []
     list_lens = []
 
     # iterates over the specified number of test runs, creates a new list in each run and conducts average runs for each of the 3 sorting algorithms against the list (in each iteration)
     for num in range(test_runs):
         L = create_random_list(list_len, list_max)
         Insertion_time_sum = conduct_AverageRuns(average_runs, insertion_sort, L)
-        Bubble_time_sum = conduct_AverageRuns(average_runs, bubble_sort, L)
-        Selection_time_sum = conduct_AverageRuns(average_runs, selection_sort, L)
+        QuickSort_time_sum = conduct_AverageRuns(average_runs, quicksort, L)
+        MergeSort_time_sum = conduct_AverageRuns(average_runs, mergesort, L)
 
         # appends the target list length and runtimes of the sorting algs to the corresponding time lusts
         list_lens.append(len(L))
         Insertion_times.append(Insertion_time_sum/average_runs)
-        Bubble_times.append(Bubble_time_sum / average_runs)
-        Selection_times.append(Selection_time_sum/ average_runs)
+        QuickSort_times.append(QuickSort_time_sum / average_runs)
+        MergeSort_times.append(MergeSort_time_sum/ average_runs)
 
         # increases the list's length by a corresponding factor
         list_len += increaseList_factor
+        #list_max += 10
 
 
     # plots the runtimes of the 3 sorting algorithms with the following legends and axis titles
-    plot.plot(list_lens, Insertion_times, marker='o', label='Insertion Sort')
-    plot.plot(list_lens, Selection_times, marker='o', label='Selection Sort')
-    plot.plot(list_lens, Bubble_times, marker='o', label='Bubble Sort')
+    plot.plot(list_lens, Insertion_times, label='Insertion Sort')
+    plot.plot(list_lens, MergeSort_times, label='Merge Sort')
+    plot.plot(list_lens, QuickSort_times, label='Quick Sort')
     plot.legend(loc='upper left', title='Sorting Algorithms', fontsize=10, facecolor='lightgray')
     plot.xlabel('List Length (n elements)')
     plot.ylabel('Runtime (seconds)')
-    plot.title("Bad Sorting Algorithms' Runtime vs List Length")
+    plot.title("Good vs. Bad Sorting Algorithms on Smaller List Sizes")
     plot.show()
 
     # returns the accumulated runtimes of all the sorting algs
-    return Insertion_times, Bubble_times, Selection_times
+    return Insertion_times, QuickSort_times, MergeSort_times
 
 
 # calls the function to commence the test and plot the curve with the following parameters: 15 test runs, 30 average runs (for each test run) with an increasing list factor of 100
-test_allSorts(15, 30, 100)
+test_allSorts(10, 20, 10)
+
+

@@ -10,15 +10,15 @@ def swap(L, i, j):
 def insertion_sort2(L):
     for i in range(1, len(L)): 
         placeholder = L[i]
-        j = i - 1
-        while j >= 0 and placeholder < L[j]:
-            L[j + 1] = L[j]
+        j = i
+        while j > 0 and L[j - 1] > placeholder:
+            L[j] = L[j - 1]
             j -= 1
-        L[j + 1] = placeholder
+        L[j] = placeholder
 
 # ******Bubble sort******
 
-def bubble_sort2(L):
+def bubble_sort2(L): #this one works fine
     for i in range(len(L)):
         swapped = False
         for j in range(0, len(L)-i-1):
@@ -31,25 +31,32 @@ def bubble_sort2(L):
 # ******Selection sort******
 
 def selection_sort2(L):
-    for i in range(len(L)):
-        min_index = find_min_index(L, i)
-        max_index = find_max_index(L, i)
-        swap(L, i, min_index)
-        swap(L, i, max_index)
+    i = 0
+    j = len(L) - 1
+    while (i < j):
+        minimum = L[i]
+        maximum = L[i]
+        min_index = i
+        max_index = i
+        for k in range(i, j+1):
+            if (L[k] > maximum):
+                maximum = L[k]
+                max_index = k
+            elif (L[k] < minimum):
+                minimum = L[k]
+                min_index = k
 
-def find_min_index(L, n):
-    min_index = n
-    for i in range(n+1, len(L)):
-        if L[i] < L[min_index]:
-            min_index = i
-    return min_index
+        swap(L, i, k)
 
-def find_max_index(L, m):
-    max_index = m
-    for i in range(len(L)):
-        if L[i] > L[max_index]:
-            max_index = i
-    return max_index
+        if (L[min_index] == maximum):
+            swap(L, j, min_index)
+        else:
+            swap(L, j, max_index)
+
+        i += 1
+        j -= 1
+
+# ******Graphing*******
 
 def test_allSorts(test_runs, average_runs, increaseList_factor):
     list_max = 100
@@ -62,7 +69,7 @@ def test_allSorts(test_runs, average_runs, increaseList_factor):
     Selection2_times = []
     list_lens = []
 
-    for num in range(test_runs):
+    for i in range(test_runs):
         L = bad_sorts.create_random_list(list_len, list_max)
         list_lens.append(len(L))
         Insertion_time_sum = 0
@@ -74,32 +81,32 @@ def test_allSorts(test_runs, average_runs, increaseList_factor):
 
         for i in range(average_runs):
             start_1 = timeit.default_timer()
-            bad_sorts.insertion_sort(L)
+            bad_sorts.insertion_sort(L.copy())
             end_1 = timeit.default_timer()
             Insertion_time_sum += (end_1-start_1)
 
             start_2 = timeit.default_timer()
-            bad_sorts.bubble_sort(L)
+            bad_sorts.bubble_sort(L.copy())
             end_2 = timeit.default_timer()
             Bubble_time_sum += (end_2 - start_2)
 
             start_3 = timeit.default_timer()
-            bad_sorts.selection_sort(L)
+            bad_sorts.selection_sort(L.copy())
             end_3 = timeit.default_timer()
             Selection_time_sum += (end_3 - start_3)
 
             start4 = timeit.default_timer()
-            selection_sort2(L)
+            insertion_sort2(L.copy())
             end_4 = timeit.default_timer()
             Insertion2_time_sum += (end_4 - start4)
 
             start_5 = timeit.default_timer()
-            bubble_sort2(L)
+            bubble_sort2(L.copy())
             end_5 = timeit.default_timer()
             Bubble2_time_sum += (end_5 - start_5)
 
             start_6 = timeit.default_timer()
-            selection_sort2(L)
+            selection_sort2(L.copy())
             end_6 = timeit.default_timer()
             Selection2_time_sum += (end_6 - start_6)
 
@@ -113,19 +120,19 @@ def test_allSorts(test_runs, average_runs, increaseList_factor):
         #print(times)
 
     plt.plot(list_lens, Insertion_times, marker='o')
-    plt.plot(list_lens, Selection_times, marker='o')
     plt.plot(list_lens, Bubble_times, marker='o')
+    plt.plot(list_lens, Selection_times, marker='o')
     plt.plot(list_lens, Insertion2_times, marker='o')
-    plt.plot(list_lens, Selection2_times, marker='o')
     plt.plot(list_lens, Bubble2_times, marker='o')
+    plt.plot(list_lens, Selection2_times, marker='o')
     plt.xlabel('List Length')
     plt.ylabel('Runtime (seconds)')
-    plt.title('Insertion, Bubble and Selection Sort Runtime (with Improvements) vs List Length')
-    plt.legend(['Insertion Sort', 'Selection Sort', 'Bubble Sort', 'Insertion Sort 2', 'Selection Sort 2', 'Bubble Sort 2'])
+    plt.title('Bad Sorts (with Their Improvements) vs List Length')
+    plt.legend(['Insertion Sort', 'Bubble Sort', 'Selection Sort', 'Insertion Sort 2', 'Bubble Sort 2', 'Selection Sort 2'])
     plt.show()
     return None
 
 def main():
-    test_allSorts(10, 10, 50)
+    test_allSorts(15, 30, 100)
 
 main()
