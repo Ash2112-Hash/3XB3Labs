@@ -49,6 +49,8 @@ def test_allSorts(sortMethod, test_runs, increase_list):
         # appending into the lists to plot in matplotlib
         list_lengths.append(list_len)
         times.append(time / average_runs)
+        # incrementing both list length and maximum value of the list
+        max_value += max_value
         list_len += increase_list
 
     return list_lengths, times

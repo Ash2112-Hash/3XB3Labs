@@ -28,6 +28,7 @@ def test_allSorts(sortType):
             time += (end - start)
         swaps.append(i)
         times.append(time / average_runs)
+        max_value += 100
 
     #returns x and y axis
     return swaps, times
