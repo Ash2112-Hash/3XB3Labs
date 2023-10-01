@@ -117,6 +117,7 @@ def test_allSorts(test_runs, average_runs, increaseList_factor):
         Bubble2_times.append(Bubble2_time_sum / average_runs)
         Selection2_times.append(Selection2_time_sum/ average_runs)
         list_len += increaseList_factor
+        list_max += increaseList_factor
         #print(times)
 
     plt.plot(list_lens, Insertion_times, marker='o')

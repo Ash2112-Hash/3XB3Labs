@@ -38,6 +38,7 @@ def test_allSorts(test_runs, average_runs, increaseList_factor):
         Merge_times.append(Merge_time_sum / average_runs)
         Heap_times.append(Heap_time_sum/ average_runs)
         list_len += increaseList_factor
+        list_max += increaseList_factor
         #print(times)
 
     plt.plot(list_lens, Quick_times, marker='o')
