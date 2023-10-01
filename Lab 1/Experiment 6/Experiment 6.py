@@ -61,7 +61,6 @@ def DualvsSingle_QuickSort(test_runs, average_runs, increaseList_factor):
     list_max = 100
     list_len = 0
     # declare the default max and len of list: 0
-    # TODO maybe increase list max as well
 
     # lists to store the average runtimes computed for each sorting alg as well as the increasing lengths of the list
     SingleQuick_times = []
@@ -81,6 +80,7 @@ def DualvsSingle_QuickSort(test_runs, average_runs, increaseList_factor):
 
         # increases the list's length by a corresponding factor
         list_len += increaseList_factor
+        list_max += increaseList_factor
 
 
     # plots the runtimes of the 3 sorting algorithms with the following legends and axis titles
@@ -109,7 +109,7 @@ assert(quicksort(L4) == dual_quicksort(L4))
 
 
 # calls the function to commence the test and plot the curve with the following parameters: 15 test runs, 30 average runs (for each test run) with an increasing list factor of 100
-DualvsSingle_QuickSort(25, 30, 200)
+DualvsSingle_QuickSort(25, 30, 100)
 
 
 

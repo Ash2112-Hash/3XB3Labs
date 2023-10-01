@@ -51,6 +51,7 @@ def test_allSorts(test_runs, average_runs, increaseList_factor):
 
         # increases the list's length by a corresponding factor
         list_len += increaseList_factor
+        list_max += increaseList_factor
 
 
     # plots the runtimes of the 3 sorting algorithms with the following legends and axis titles
