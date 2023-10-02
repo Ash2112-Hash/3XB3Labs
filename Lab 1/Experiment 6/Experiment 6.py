@@ -1,7 +1,6 @@
 # ******************* Experiment 6 Functions *******************
 # Functions designated to running experiment 6 pertaining to verifying a potential speedup of quick sort
 
-# TODO maybe add partially sorted and sorted lists to test as well
 
 # Import the necessary modules/libraries needed for experiment
 from good_sorts import quicksort
@@ -58,7 +57,7 @@ def dual_quicksort(L):
 # DualvsSingle_QuickSort tests dual quicksort vs. normal quicksort for a specific amount of test_runs and plots the corresponding runtime results from each algorithm using matplotlib
 # Paramaters: test_runs(number of actual test runs), average_runs (number of average runs - done during each actual test run) and increaseList_factor(factor used to increase the list size)
 def DualvsSingle_QuickSort(test_runs, average_runs, increaseList_factor):
-    list_max = 100
+    list_max = 0
     list_len = 0
     # declare the default max and len of list: 0
 
@@ -86,7 +85,7 @@ def DualvsSingle_QuickSort(test_runs, average_runs, increaseList_factor):
     # plots the runtimes of the 3 sorting algorithms with the following legends and axis titles
     plot.plot(list_lens, SingleQuick_times, label='Single Pivot QuickSort')
     plot.plot(list_lens, DualQuick_times, label='Dual Pivot Quicksort')
-    plot.legend(loc='upper left', title='Quicksort Algorithms', fontsize=10, facecolor='lightgray')
+    plot.legend(loc='upper left', title='Quicksort Algorithms', fontsize=10)
     plot.xlabel('List Length (n elements)')
     plot.ylabel('Runtime (seconds)')
     plot.title("Dual and Single Quicksort's Runtime vs. List Length")
