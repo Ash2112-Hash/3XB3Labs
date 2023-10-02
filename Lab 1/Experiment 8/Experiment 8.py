@@ -2,14 +2,11 @@
 # Functions designated to running experiment 8 pertaining to compare insertion sort to merge and quick sort for small list sizes.
 
 
-# TODO maybe add partially sorted lists and sorted lists to experiment 8
-
 # Import the necessary modules/libraries needed for experiment
 from good_sorts import quicksort, mergesort
 from bad_sorts import create_random_list, insertion_sort
 import timeit
 import matplotlib.pyplot as plot
-import numpy
 
 
 # conduct_AverageRuns conducts an average number of runs for the specific sorting algorithm and measures the corresponding runtime of the algorithm (aginest a target list)
@@ -73,10 +70,10 @@ def test_allSorts(test_runs, average_runs, increaseList_factor):
     return Insertion_times, QuickSort_times, MergeSort_times
 
 
+# Pic 1 to show where Insertion sort is good and transitions to become inefficient
 # calls the function to commence the test and plot the curve with the following parameters: 13 test runs, 30 average runs (for each test run) with an increasing list factor of 1 (focusing mainly on insertion vs quick sort in this case)
 test_allSorts(13, 30, 1)
 
-
+# Pic 2 to show where Insertion sort becomes inefficient
 # calls the function to commence the test and plot the curve with the following parameters: 15 test runs, 30 average runs (for each test run) with an increasing list factor of 1 (merge vs insertion in this case)
-#test_allSorts(100, 30, 1)
-# TODO CONFIRM BETWEEN ORG AND ALT PICS FOR SECOND DEMO
+test_allSorts(100, 30, 1)
