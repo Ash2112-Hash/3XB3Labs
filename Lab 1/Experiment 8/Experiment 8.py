@@ -9,6 +9,7 @@ from good_sorts import quicksort, mergesort
 from bad_sorts import create_random_list, insertion_sort
 import timeit
 import matplotlib.pyplot as plot
+import numpy
 
 
 # conduct_AverageRuns conducts an average number of runs for the specific sorting algorithm and measures the corresponding runtime of the algorithm (aginest a target list)
@@ -30,7 +31,7 @@ def conduct_AverageRuns(averageRunCount, sortingAlgFunc, target_List):
 # test_allSorts tests the 3 sorting algorithms for a specific amount of test_runs and plots the corresponding runtime results from each algorithm using matplotlib
 # Paramaters: test_runs(number of actual test runs), average_runs (number of average runs - done during each actual test run) and increaseList_factor(factor used to increase the list size)
 def test_allSorts(test_runs, average_runs, increaseList_factor):
-    list_max = 100
+    list_max = 0
     list_len = 0
     # declare the default max and len of list: 0
 
@@ -62,7 +63,7 @@ def test_allSorts(test_runs, average_runs, increaseList_factor):
     plot.plot(list_lens, Insertion_times, label='Insertion Sort')
     plot.plot(list_lens, MergeSort_times, label='Merge Sort')
     plot.plot(list_lens, QuickSort_times, label='Quick Sort')
-    plot.legend(loc='upper left', title='Sorting Algorithms', fontsize=10, facecolor='lightgray')
+    plot.legend(loc='upper left', title='Sorting Algorithms', fontsize=10)
     plot.xlabel('List Length (n elements)')
     plot.ylabel('Runtime (seconds)')
     plot.title("Good vs. Bad Sorting Algorithms on Smaller List Sizes")
@@ -76,6 +77,6 @@ def test_allSorts(test_runs, average_runs, increaseList_factor):
 test_allSorts(13, 30, 1)
 
 
-# calls the function to commence the test and plot the curve with the following parameters: 15 test runs, 30 average runs (for each test run) with an increasing list factor of 5 (insertion vs quick in this case)
-test_allSorts(100, 30, 1)
+# calls the function to commence the test and plot the curve with the following parameters: 15 test runs, 30 average runs (for each test run) with an increasing list factor of 1 (merge vs insertion in this case)
+#test_allSorts(100, 30, 1)
 # TODO CONFIRM BETWEEN ORG AND ALT PICS FOR SECOND DEMO
