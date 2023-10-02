@@ -42,9 +42,9 @@ def test_allSorts(test_runs, average_runs, increaseList_factor):
         #print(times)
 
     #plotting the graph
-    plt.plot(list_lens, Quick_times, marker='o')
-    plt.plot(list_lens, Merge_times, marker='o')
-    plt.plot(list_lens, Heap_times, marker='o')
+    plt.plot(list_lens, Quick_times)
+    plt.plot(list_lens, Merge_times)
+    plt.plot(list_lens, Heap_times)
     plt.xlabel('List Length')
     plt.ylabel('Runtime (seconds)')
     plt.title('Good Sorts vs List Length')

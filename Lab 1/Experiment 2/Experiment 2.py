@@ -120,16 +120,17 @@ def test_allSorts(test_runs, average_runs, increaseList_factor):
         list_max += increaseList_factor
 
     #plotting the graph
-    plt.plot(list_lens, Insertion_times, marker='o')
-    plt.plot(list_lens, Bubble_times, marker='o')
-    plt.plot(list_lens, Selection_times, marker='o')
-    plt.plot(list_lens, Insertion2_times, marker='o')
-    plt.plot(list_lens, Bubble2_times, marker='o')
-    plt.plot(list_lens, Selection2_times, marker='o')
+    #toggle on/off what you want to graph
+    #plt.plot(list_lens, Insertion_times)
+    #plt.plot(list_lens, Bubble_times)
+    plt.plot(list_lens, Selection_times)
+    #plt.plot(list_lens, Insertion2_times)
+    #plt.plot(list_lens, Bubble2_times)
+    plt.plot(list_lens, Selection2_times)
     plt.xlabel('List Length')
     plt.ylabel('Runtime (seconds)')
-    plt.title('Bad Sorts (with Their Improvements) vs List Length')
-    plt.legend(['Insertion Sort', 'Bubble Sort', 'Selection Sort', 'Insertion Sort 2', 'Bubble Sort 2', 'Selection Sort 2'])
+    plt.title('Selection Sort (Original and Improved) vs List Length')
+    plt.legend(['Selection Sort', 'Selection Sort 2'])
     plt.show()
     return None
 
