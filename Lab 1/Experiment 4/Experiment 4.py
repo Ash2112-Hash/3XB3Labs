@@ -18,7 +18,7 @@ def test_allSorts(test_runs, average_runs, increaseList_factor):
         Merge_time_sum = 0
         Heap_time_sum = 0
 
-        for run in range(average_runs):
+        for run in range(average_runs): #running multiple tests for accuracy
             start_1 = timeit.default_timer()
             good_sorts.quicksort(L.copy())
             end_1 = timeit.default_timer()
@@ -38,11 +38,13 @@ def test_allSorts(test_runs, average_runs, increaseList_factor):
         Merge_times.append(Merge_time_sum / average_runs)
         Heap_times.append(Heap_time_sum/ average_runs)
         list_len += increaseList_factor
+        list_max += increaseList_factor
         #print(times)
 
-    plt.plot(list_lens, Quick_times, marker='o')
-    plt.plot(list_lens, Merge_times, marker='o')
-    plt.plot(list_lens, Heap_times, marker='o')
+    #plotting the graph
+    plt.plot(list_lens, Quick_times)
+    plt.plot(list_lens, Merge_times)
+    plt.plot(list_lens, Heap_times)
     plt.xlabel('List Length')
     plt.ylabel('Runtime (seconds)')
     plt.title('Good Sorts vs List Length')

@@ -26,7 +26,7 @@ def conduct_AverageRuns(averageRunCount, sortingAlgFunc, target_List):
 # test_allSorts tests the 3 sorting algorithms for a specific amount of test_runs and plots the corresponding runtime results from each algorithm using matplotlib
 # Paramaters: test_runs(number of actual test runs), average_runs (number of average runs - done during each actual test run) and increaseList_factor(factor used to increase the list size)
 def test_allSorts(test_runs, average_runs, increaseList_factor):
-    list_max = 100
+    list_max = 0
     list_len = 0
     # declare the default max and len of list: 0
 
@@ -51,19 +51,20 @@ def test_allSorts(test_runs, average_runs, increaseList_factor):
 
         # increases the list's length by a corresponding factor
         list_len += increaseList_factor
+        list_max += increaseList_factor
 
 
     # plots the runtimes of the 3 sorting algorithms with the following legends and axis titles
-    plot.plot(list_lens, Insertion_times, marker='o', label='Insertion Sort')
-    plot.plot(list_lens, Selection_times, marker='o', label='Selection Sort')
-    plot.plot(list_lens, Bubble_times, marker='o', label='Bubble Sort')
-    plot.legend(loc='upper left', title='Sorting Algorithms', fontsize=10, facecolor='lightgray')
+    plot.plot(list_lens, Insertion_times, label='Insertion Sort')
+    plot.plot(list_lens, Selection_times, label='Selection Sort')
+    plot.plot(list_lens, Bubble_times, label='Bubble Sort')
+    plot.legend(loc='upper left', title='Sorting Algorithms', fontsize=10)
     plot.xlabel('List Length (n elements)')
     plot.ylabel('Runtime (seconds)')
     plot.title("Bad Sorting Algorithms' Runtime vs List Length")
     plot.show()
 
-    # returns the accumulated runtimes of all the sorting algs
+    # returns the accumulated runtimes of all the sorting alg s
     return Insertion_times, Bubble_times, Selection_times
 
 
