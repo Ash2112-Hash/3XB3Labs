@@ -55,9 +55,9 @@ def test_allSorts(test_runs, average_runs, increaseList_factor):
 
 
     # plots the runtimes of the 3 sorting algorithms with the following legends and axis titles
-    plot.plot(list_lens, Insertion_times, marker='o', label='Insertion Sort')
-    plot.plot(list_lens, Selection_times, marker='o', label='Selection Sort')
-    plot.plot(list_lens, Bubble_times, marker='o', label='Bubble Sort')
+    plot.plot(list_lens, Insertion_times, label='Insertion Sort')
+    plot.plot(list_lens, Selection_times, label='Selection Sort')
+    plot.plot(list_lens, Bubble_times, label='Bubble Sort')
     plot.legend(loc='upper left', title='Sorting Algorithms', fontsize=10)
     plot.xlabel('List Length (n elements)')
     plot.ylabel('Runtime (seconds)')
