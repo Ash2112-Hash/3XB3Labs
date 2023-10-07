@@ -43,6 +43,24 @@ def BFS(G, node1, node2):
                 marked[node] = True
     return False
 
+def BFS2(G, node1, node2):
+    path = []
+    Q = deque([(node1, [node1])])
+    marked = {node: False for node in G.adj}
+
+    while len(Q) != 0:
+        current_node, path = Q.popleft()
+        marked[current_node] = True
+
+        for neighbour in G.adj[current_node]:
+            if neighbour == node2:
+                path.append(node2)
+                return path
+            if not marked[neighbour]:
+                Q.append((neighbour, path + [neighbour]))
+                marked[neighbour] = True
+    
+    return []
 
 #Depth First Search
 def DFS(G, node1, node2):
@@ -60,6 +78,24 @@ def DFS(G, node1, node2):
                 S.append(node)
     return False
 
+def DFS2(G, node1, node2):
+    path = []
+    S = [(node1, [node1])]
+    marked = {node: False for node in G.adj}
+    
+    while len(S) != 0:
+        current_node, path = S.pop()
+        marked[current_node] = True
+
+        for neighbour in G.adj[current_node]:
+            if neighbour == node2:
+                path.append(neighbour)
+                return path
+
+            if not marked[neighbour]:
+                marked[neighbour] = True
+                S.append((neighbour, path + [neighbour]))
+    return []
 
 #Use the methods below to determine minimum Vertex Covers
 def add_to_each(sets, element):
