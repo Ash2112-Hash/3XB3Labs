@@ -8,7 +8,7 @@ def BFS3(G, first_node):
     while len(Q) != 0:
         current_node = Q.popleft()
         if current_node not in marked:
-            marked.add(current_node)
+            marked.update(current_node)
             for node in G.adj[first_node]:
                 if node not in marked:
                     Q.append(node)
