@@ -43,7 +43,7 @@ def BFS(G, node1, node2):
                 marked[node] = True
     return False
 
-def BFS2(G, node1, node2):
+def BFS2(G, node1, node2):      #TODO need to test
     path = []
     Q = deque([(node1, [node1])])
     marked = {node: False for node in G.adj}
@@ -59,7 +59,7 @@ def BFS2(G, node1, node2):
             if not marked[neighbour]:
                 Q.append((neighbour, path + [neighbour]))
                 marked[neighbour] = True
-    
+
     return []
 
 #Depth First Search
@@ -78,11 +78,11 @@ def DFS(G, node1, node2):
                 S.append(node)
     return False
 
-def DFS2(G, node1, node2):
+def DFS2(G, node1, node2):  #TODO need to test
     path = []
     S = [(node1, [node1])]
     marked = {node: False for node in G.adj}
-    
+
     while len(S) != 0:
         current_node, path = S.pop()
         marked[current_node] = True
@@ -96,6 +96,74 @@ def DFS2(G, node1, node2):
                 marked[neighbour] = True
                 S.append((neighbour, path + [neighbour]))
     return []
+
+
+
+def has_cycle(G):
+
+    def decision_DFS3(first_node):  #TODO confirm with TA for this
+        S = [first_node]
+        marked = set()
+        predecessor = {}
+        while len(S) != 0:
+            current_node = S.pop()
+            if current_node not in marked:
+                marked.add(current_node)
+
+                for node in G.adj[current_node]:
+                    if node not in marked:
+                        S.append(node)
+                        predecessor[node] = current_node
+                    else:
+                        if predecessor.get(current_node) != node: # implies we reached the current node from another node thats already marked
+                            return True
+
+        return False
+
+    if (not G.adj):
+        return False
+
+    else:
+        for each_node in G.adj:
+            if decision_DFS3(each_node):
+                return True
+
+    return False
+
+
+
+def Is_connected(G):        #TODO confirm if checking all nodes are visited or smth else
+    start_node = next(iter(G.adj))
+    visited = set()
+
+    for node in G.adj:          #TODO confirm if we can use normal DFS or DFS2
+        if node != start_node:
+            path = DFS2(G, start_node, node)
+
+            for each_node in path:
+                visited.add(each_node)
+
+            #print(start_node, node, path, visited)
+
+    return G.adj.keys() == visited
+
+
+### TESTING TODO REMOVE LATER ###
+G = Graph(0)
+G.add_node()
+G.add_node()
+G.add_node()
+G.add_node()
+G.add_node()
+G.add_edge(0, 1)
+G.add_edge(0, 2)
+G.add_edge(1, 3)
+G.add_edge(2, 3)
+print(has_cycle(G))
+print(Is_connected(G))
+
+
+
 
 #Use the methods below to determine minimum Vertex Covers
 def add_to_each(sets, element):
@@ -125,5 +193,6 @@ def MVC(G):
             if len(subset) < len(min_cover):
                 min_cover = subset
     return min_cover
+
 
 
