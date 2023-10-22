@@ -114,8 +114,21 @@ def DFS2(G, node1, node2):  #TODO need to test
                 S.append((neighbour, path + [neighbour]))
     return []
 
-<<<<<<< HEAD
+def DFS3(G, first_node):
+    S = [first_node]
+    marked = set()
+    predecessor = {}
 
+    while len(S) != 0:
+        current_node = S.pop()
+        if current_node not in marked:
+            marked.add(current_node)
+            for node in G.adj[first_node]:
+                if node not in marked:
+                    S.append(node)
+                    predecessor[node] = current_node
+
+    return predecessor
 
 def has_cycle(G):
 
@@ -180,26 +193,6 @@ G.add_edge(2, 3)
 print(has_cycle(G))
 print(Is_connected(G))
 
-
-
-=======
-def DFS3(G, first_node):
-    S = [first_node]
-    marked = set()
-    predecessor = {}
-
-    while len(S) != 0:
-        current_node = S.pop()
-        if current_node not in marked:
-            marked.add(current_node)
-            for node in G.adj[first_node]:
-                if node not in marked:
-                    S.append(node)
-                    predecessor[node] = current_node
-
-    return predecessor
->>>>>>> 565bbef (generate random graph function added)
-
 #Use the methods below to determine minimum Vertex Covers
 def add_to_each(sets, element):
     copy = sets.copy()
@@ -228,11 +221,7 @@ def MVC(G):
             if len(subset) < len(min_cover):
                 min_cover = subset
     return min_cover
-
-<<<<<<< HEAD
-
-
-=======
+    
 #Create random generated graph
 def create_random_graph(i, j):
     # maximum number of unrepeating edges in undirected graph
@@ -248,4 +237,3 @@ def create_random_graph(i, j):
             n -= 1
             continue
         add_edge(a, b)
->>>>>>> 565bbef (generate random graph function added)
