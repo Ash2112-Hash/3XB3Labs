@@ -1,4 +1,5 @@
 from collections import deque
+from random import randint
 
 #Undirected graph using an adjacency list
 class Graph:
@@ -62,6 +63,22 @@ def BFS2(G, node1, node2):      #TODO need to test
 
     return []
 
+def BFS3(G, first_node):
+    Q = deque(first_node)
+    marked = set()
+    predecessor = {}
+
+    while len(Q) != 0:
+        current_node = Q.popleft()
+        if current_node not in marked:
+            marked.add(current_node)
+            for node in G.adj[first_node]:
+                if node not in marked:
+                    Q.append(node)
+                    predecessor[node] = current_node
+
+    return predecessor
+
 #Depth First Search
 def DFS(G, node1, node2):
     S = [node1]
@@ -97,6 +114,7 @@ def DFS2(G, node1, node2):  #TODO need to test
                 S.append((neighbour, path + [neighbour]))
     return []
 
+<<<<<<< HEAD
 
 
 def has_cycle(G):
@@ -164,6 +182,23 @@ print(Is_connected(G))
 
 
 
+=======
+def DFS3(G, first_node):
+    S = [first_node]
+    marked = set()
+    predecessor = {}
+
+    while len(S) != 0:
+        current_node = S.pop()
+        if current_node not in marked:
+            marked.add(current_node)
+            for node in G.adj[first_node]:
+                if node not in marked:
+                    S.append(node)
+                    predecessor[node] = current_node
+
+    return predecessor
+>>>>>>> 565bbef (generate random graph function added)
 
 #Use the methods below to determine minimum Vertex Covers
 def add_to_each(sets, element):
@@ -194,5 +229,23 @@ def MVC(G):
                 min_cover = subset
     return min_cover
 
+<<<<<<< HEAD
 
 
+=======
+#Create random generated graph
+def create_random_graph(i, j):
+    # maximum number of unrepeating edges in undirected graph
+    if j > (i * (i - 1) / 2):
+        j = i * (i - 1) / 2
+    for _ in range(i):
+        adjacency_list.append([])
+    for n in j:
+        a = randint(0, i - 1)
+        b = randint(0, i - 1)
+        if ((a == b) or (b in adjacency_list[a])):
+            #decrease i to "re-do" the randomization so that it can generate non-repeating edges
+            n -= 1
+            continue
+        add_edge(a, b)
+>>>>>>> 565bbef (generate random graph function added)
