@@ -130,6 +130,68 @@ def DFS3(G, first_node):
 
     return predecessor
 
+def has_cycle(G):
+
+    def decision_DFS3(first_node):  #TODO confirm with TA for this
+        S = [first_node]
+        marked = set()
+        predecessor = {}
+        while len(S) != 0:
+            current_node = S.pop()
+            if current_node not in marked:
+                marked.add(current_node)
+
+                for node in G.adj[current_node]:
+                    if node not in marked:
+                        S.append(node)
+                        predecessor[node] = current_node
+                    else:
+                        if predecessor.get(current_node) != node: # implies we reached the current node from another node thats already marked
+                            return True
+
+        return False
+
+    if (not G.adj):
+        return False
+
+    else:
+        for each_node in G.adj:
+            if decision_DFS3(each_node):
+                return True
+
+    return False
+
+
+
+def Is_connected(G):        #TODO confirm if checking all nodes are visited or smth else
+    start_node = next(iter(G.adj))
+    visited = set()
+
+    for node in G.adj:          #TODO confirm if we can use normal DFS or DFS2
+        if node != start_node:
+            path = DFS2(G, start_node, node)
+
+            for each_node in path:
+                visited.add(each_node)
+
+            #print(start_node, node, path, visited)
+
+    return G.adj.keys() == visited
+
+### TESTING TODO REMOVE LATER ###
+G = Graph(0)
+G.add_node()
+G.add_node()
+G.add_node()
+G.add_node()
+G.add_node()
+G.add_edge(0, 1)
+G.add_edge(0, 2)
+G.add_edge(1, 3)
+G.add_edge(2, 3)
+print(has_cycle(G))
+print(Is_connected(G))
+
 #Use the methods below to determine minimum Vertex Covers
 def add_to_each(sets, element):
     copy = sets.copy()
@@ -159,7 +221,6 @@ def MVC(G):
                 min_cover = subset
     return min_cover
 
-#Create random generated graph
 def create_random_graph(i, j):
     # maximum number of unrepeating edges in undirected graph
     if j > (i * (i - 1) / 2):
