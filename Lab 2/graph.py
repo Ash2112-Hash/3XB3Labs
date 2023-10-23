@@ -222,6 +222,7 @@ def MVC(G):
     return min_cover
 
 def create_random_graph(i, j):
+    adjacency_list = []
     # maximum number of unrepeating edges in undirected graph
     if j > (i * (i - 1) / 2):
         j = i * (i - 1) / 2
