@@ -60,7 +60,7 @@ def BFS2(G, node1, node2):      #TODO need to test
             if not marked[neighbour]:
                 Q.append((neighbour, path + [neighbour]))
                 marked[neighbour] = True
-
+    
     return []
 
 def BFS3(G, first_node):
@@ -95,11 +95,11 @@ def DFS(G, node1, node2):
                 S.append(node)
     return False
 
-def DFS2(G, node1, node2):  #TODO need to test
+def DFS2(G, node1, node2):
     path = []
     S = [(node1, [node1])]
     marked = {node: False for node in G.adj}
-
+    
     while len(S) != 0:
         current_node, path = S.pop()
         marked[current_node] = True
@@ -178,7 +178,6 @@ def Is_connected(G):        #TODO confirm if checking all nodes are visited or s
 
     return G.adj.keys() == visited
 
-
 ### TESTING TODO REMOVE LATER ###
 G = Graph(0)
 G.add_node()
@@ -222,10 +221,8 @@ def MVC(G):
                 min_cover = subset
     return min_cover
 
-
-"""  
-#Create random generated graph
 def create_random_graph(i, j):
+    adjacency_list = []
     # maximum number of unrepeating edges in undirected graph
     if j > (i * (i - 1) / 2):
         j = i * (i - 1) / 2
@@ -239,4 +236,3 @@ def create_random_graph(i, j):
             n -= 1
             continue
         add_edge(a, b)
-"""
