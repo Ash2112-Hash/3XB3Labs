@@ -236,9 +236,6 @@ def create_random_graph(i, j):
             #decrease i to "re-do" the randomization so that it can generate non-repeating edges
             n -= 1
             continue
-        addedge(a, b)
-    return adjacency_list
-
-def addedge(a, b):
-    adjacency_list[a].append[b]
-    adjacency_list[b].append[a]
+        adjacency_list[a].append[b]
+        adjacency_list[b].append[a]
+    return Graph(i)
