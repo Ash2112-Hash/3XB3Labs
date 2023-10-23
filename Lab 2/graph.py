@@ -224,8 +224,9 @@ def MVC(G):
 def create_random_graph(i, j):
     adjacency_list = []
     # maximum number of unrepeating edges in undirected graph
-    if j > (i * (i - 1) / 2):
-        j = i * (i - 1) / 2
+    max_edge = (i * (i - 1) / 2)
+    if j > max_edge
+        j = max_edge
     for _ in range(i):
         adjacency_list.append([])
     for n in j:
@@ -235,4 +236,9 @@ def create_random_graph(i, j):
             #decrease i to "re-do" the randomization so that it can generate non-repeating edges
             n -= 1
             continue
-        add_edge(a, b)
+        addedge(a, b)
+    return adjacency_list
+
+def addedge(a, b):
+    adjacency_list[a].append[b]
+    adjacency_list[b].append[a]
