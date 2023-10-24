@@ -60,7 +60,7 @@ def BFS2(G, node1, node2):      #TODO need to test
             if not marked[neighbour]:
                 Q.append((neighbour, path + [neighbour]))
                 marked[neighbour] = True
-
+    
     return []
 
 def BFS3(G, first_node):
@@ -95,11 +95,11 @@ def DFS(G, node1, node2):
                 S.append(node)
     return False
 
-def DFS2(G, node1, node2):  #TODO need to test
+def DFS2(G, node1, node2):
     path = []
     S = [(node1, [node1])]
     marked = {node: False for node in G.adj}
-
+    
     while len(S) != 0:
         current_node, path = S.pop()
         marked[current_node] = True
@@ -179,19 +179,6 @@ def Is_connected(G):        #TODO confirm if checking all nodes are visited or s
     return G.adj.keys() == visited
 
 
-### TESTING TODO REMOVE LATER ###
-G = Graph(0)
-G.add_node()
-G.add_node()
-G.add_node()
-G.add_node()
-G.add_node()
-G.add_edge(0, 1)
-G.add_edge(0, 2)
-G.add_edge(1, 3)
-G.add_edge(2, 3)
-print(has_cycle(G))
-print(Is_connected(G))
 
 #Use the methods below to determine minimum Vertex Covers
 def add_to_each(sets, element):
@@ -223,20 +210,43 @@ def MVC(G):
     return min_cover
 
 
-"""  
-#Create random generated graph
 def create_random_graph(i, j):
+    rand_graph = Graph(i)
+
     # maximum number of unrepeating edges in undirected graph
-    if j > (i * (i - 1) / 2):
-        j = i * (i - 1) / 2
-    for _ in range(i):
-        adjacency_list.append([])
-    for n in j:
+    max_edge = (i * (i - 1) / 2)
+    if j > max_edge:
+        j = max_edge
+
+    for edge_count in range(j):
         a = randint(0, i - 1)
         b = randint(0, i - 1)
-        if ((a == b) or (b in adjacency_list[a])):
+        if ((a == b) or (b in rand_graph.adj[a])):
             #decrease i to "re-do" the randomization so that it can generate non-repeating edges
-            n -= 1
+            edge_count -= 1
             continue
-        add_edge(a, b)
-"""
+        rand_graph.add_edge(a, b)
+    return rand_graph
+
+
+
+
+### TODO TESTING REMOVE LATER #######################################
+rand_G = create_random_graph(5, 10)
+print(rand_G.number_of_nodes())
+print(rand_G.adj)
+print(has_cycle(rand_G))
+print(Is_connected(rand_G))
+
+G = Graph(0)
+G.add_node()
+G.add_node()
+G.add_node()
+G.add_node()
+G.add_node()
+G.add_edge(0, 1)
+G.add_edge(0, 2)
+G.add_edge(1, 3)
+G.add_edge(2, 3)
+print(has_cycle(G))
+print(Is_connected(G))
