@@ -8,7 +8,7 @@ def approx1(G):
     G2 = G.copy()
     for node in G.adj:
         nodes.append(node)
-        degree = len(adjacent_nodes(node))
+        degree = len(G.adjacent_nodes(node))
         degrees.append(degree)
     while graph.is_vertex_cover(G2, C) == False:
         v = max(degrees)
