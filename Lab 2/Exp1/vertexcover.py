@@ -2,17 +2,22 @@ import graph
 import random
 
 def approx1(G):
-    C = {}
+    C = set()
     degrees = []
     nodes = []
-    for node in G:
+    G2 = G.copy()
+    for node in G.adj:
         nodes.append(node)
-        degree = #number of edges attached to node (this is the part i'm confused about LOL)
+        degree = len(adjacent_nodes(node))
         degrees.append(degree)
-    while graph.is_vertex_cover(G, C) == False:
-        C.append(max(degrees))
-        i = degrees.index(max(degrees))
-        del nodes[i]
+    while graph.is_vertex_cover(G2, C) == False:
+        v = max(degrees)
+        i = degrees.index(v)
+        max_node = nodes[i]
+        C.add(max_node)
+        del max_node
+        G2.adjacent_nodes(max_node).clear()
+        nodes.adj[i].clear()
         del degrees[i]
     return C
 
