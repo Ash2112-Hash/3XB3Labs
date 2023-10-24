@@ -228,9 +228,6 @@ def create_random_graph(i, j):
         rand_graph.add_edge(a, b)
     return rand_graph
 
-
-
-
 ### TODO TESTING REMOVE LATER #######################################
 rand_G = create_random_graph(5, 10)
 print(rand_G.number_of_nodes())
