@@ -22,22 +22,22 @@ def approx1(G):
     return C
 
 def approx2(G):
-    C = {}
+    C = set()
     nodes = []
-    for node in G:
+    for node in G.adj:
         nodes.append(node)
     while graph.is_vertex_cover(G, C) == False:
-        rand_node = random.randint(0, len(nodes))
-        C.append(nodes[rand_node])
+        rand_node = random.randint(0, len(nodes) - 1)
+        C.add(nodes[rand_node])
         del nodes[rand_node]
     return C
 
 def approx3(G):
-    C = {}
+    C = set()
     edges = []
     #get list of all the edges in G 
     while graph.is_vertex_cover(G, C) == False:
         rand_edge = random.randint(0, len(edges))
-        C.append(edges[rand_edge])
+        C.add(edges[rand_edge])
         del edges[rand_edge]
     return C
