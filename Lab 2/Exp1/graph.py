@@ -1,7 +1,8 @@
 from collections import deque
 from random import randint
 
-#Undirected graph using an adjacency list
+
+# Undirected graph using an adjacency list
 class Graph:
 
     def __init__(self, n):
@@ -27,10 +28,10 @@ class Graph:
         return len(self.adj)
 
 
-#Breadth First Search
+# Breadth First Search
 def BFS(G, node1, node2):
     Q = deque([node1])
-    marked = {node1 : True}
+    marked = {node1: True}
     for node in G.adj:
         if node != node1:
             marked[node] = False
@@ -44,7 +45,8 @@ def BFS(G, node1, node2):
                 marked[node] = True
     return False
 
-def BFS2(G, node1, node2):      #TODO need to test
+
+def BFS2(G, node1, node2):  # TODO need to test
     path = []
     Q = deque([(node1, [node1])])
     marked = {node: False for node in G.adj}
@@ -60,8 +62,9 @@ def BFS2(G, node1, node2):      #TODO need to test
             if not marked[neighbour]:
                 Q.append((neighbour, path + [neighbour]))
                 marked[neighbour] = True
-    
+
     return []
+
 
 def BFS3(G, first_node):
     Q = deque(first_node)
@@ -79,7 +82,8 @@ def BFS3(G, first_node):
 
     return predecessor
 
-#Depth First Search
+
+# Depth First Search
 def DFS(G, node1, node2):
     S = [node1]
     marked = {}
@@ -95,11 +99,12 @@ def DFS(G, node1, node2):
                 S.append(node)
     return False
 
+
 def DFS2(G, node1, node2):
     path = []
     S = [(node1, [node1])]
     marked = {node: False for node in G.adj}
-    
+
     while len(S) != 0:
         current_node, path = S.pop()
         marked[current_node] = True
@@ -113,6 +118,7 @@ def DFS2(G, node1, node2):
                 marked[neighbour] = True
                 S.append((neighbour, path + [neighbour]))
     return []
+
 
 def DFS3(G, first_node):
     S = [first_node]
@@ -130,9 +136,9 @@ def DFS3(G, first_node):
 
     return predecessor
 
-def has_cycle(G):
 
-    def decision_DFS3(first_node):  #TODO confirm with TA for this
+def has_cycle(G):
+    def decision_DFS3(first_node):  # TODO confirm with TA for this
         S = [first_node]
         marked = set()
         predecessor = {}
@@ -146,7 +152,8 @@ def has_cycle(G):
                         S.append(node)
                         predecessor[node] = current_node
                     else:
-                        if predecessor.get(current_node) != node: # implies we reached the current node from another node thats already marked
+                        if predecessor.get(
+                                current_node) != node:  # implies we reached the current node from another node thats already marked
                             return True
 
         return False
@@ -162,42 +169,43 @@ def has_cycle(G):
     return False
 
 
-
-def Is_connected(G):        #TODO confirm if checking all nodes are visited or smth else
+def Is_connected(G):  # TODO confirm if checking all nodes are visited or smth else
     start_node = next(iter(G.adj))
     visited = set()
 
-    for node in G.adj:          #TODO confirm if we can use normal DFS or DFS2
+    for node in G.adj:  # TODO confirm if we can use normal DFS or DFS2
         if node != start_node:
             path = DFS2(G, start_node, node)
 
             for each_node in path:
                 visited.add(each_node)
 
-            #print(start_node, node, path, visited)
+            # print(start_node, node, path, visited)
 
     return G.adj.keys() == visited
 
 
-
-#Use the methods below to determine minimum Vertex Covers
+# Use the methods below to determine minimum Vertex Covers
 def add_to_each(sets, element):
     copy = sets.copy()
     for set in copy:
         set.append(element)
     return copy
 
+
 def power_set(set):
     if set == []:
         return [[]]
     return power_set(set[1:]) + add_to_each(power_set(set[1:]), set[0])
 
+
 def is_vertex_cover(G, C):
     for start in G.adj:
         for end in G.adj[start]:
-            if not(start in C or end in C):
+            if not (start in C or end in C):
                 return False
     return True
+
 
 def MVC(G):
     nodes = [i for i in range(G.get_size())]
@@ -218,17 +226,18 @@ def create_random_graph(i, j):
     if j > max_edge:
         j = max_edge
 
-    for edge_count in range(j):
+    while j > 0:
         a = randint(0, i - 1)
         b = randint(0, i - 1)
-        if ((a == b) or (b in rand_graph.adj[a])):
-            #decrease i to "re-do" the randomization so that it can generate non-repeating edges
-            edge_count -= 1
-            continue
-        rand_graph.add_edge(a, b)
+        if (a != b) or (b not in rand_graph.adj[a]):
+            rand_graph.add_edge(a, b)
+            j -= 1  # decrease j to continue loop and randomization process until no edges are left
+
     return rand_graph
 
+
 ### TODO TESTING REMOVE LATER #######################################
+"""
 rand_G = create_random_graph(5, 10)
 print(rand_G.number_of_nodes())
 print(rand_G.adj)
@@ -247,3 +256,4 @@ G.add_edge(1, 3)
 G.add_edge(2, 3)
 print(has_cycle(G))
 print(Is_connected(G))
+"""
