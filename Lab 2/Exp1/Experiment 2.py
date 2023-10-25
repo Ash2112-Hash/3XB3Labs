@@ -21,7 +21,7 @@ def test_connected(num_nodes, num_edges, test_runs):
                 counter += 1
         
         probability = counter / len(connected_or_not)
-        probabilities.append(probability)
+        probabilities.append(probability/test_runs)
 
         track_edges.append(i)
 
