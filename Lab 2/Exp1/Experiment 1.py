@@ -5,7 +5,6 @@
 import matplotlib.pyplot as plot
 from graph import *
 
-
 def plot_RandomGCycleProb(average_runs, node_count, edge_count):
     edge_quantities = []
     cycle_probs = []
@@ -34,9 +33,11 @@ def plot_RandomGCycleProb(average_runs, node_count, edge_count):
     plot.show()
 
 
-plot_RandomGCycleProb(10, 10, 10)
-plot_RandomGCycleProb(20, 50, 30)
-plot_RandomGCycleProb(20, 60, 100)
+def main():
+    plot_RandomGCycleProb(10, 10, 10)
+    plot_RandomGCycleProb(20, 50, 30)
+    plot_RandomGCycleProb(20, 60, 100)
 
 
+main()
 

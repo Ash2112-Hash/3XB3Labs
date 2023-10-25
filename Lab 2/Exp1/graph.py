@@ -137,52 +137,44 @@ def DFS3(G, first_node):
     return predecessor
 
 
+
 def has_cycle(G):
-    def decision_DFS3(first_node):  # TODO confirm with TA for this
-        S = [first_node]
-        marked = set()
-        predecessor = {}
-        while len(S) != 0:
-            current_node = S.pop()
-            if current_node not in marked:
-                marked.add(current_node)
-
-                for node in G.adj[current_node]:
-                    if node not in marked:
-                        S.append(node)
-                        predecessor[node] = current_node
-                    else:
-                        if predecessor.get(
-                                current_node) != node:  # implies we reached the current node from another node thats already marked
-                            return True
-
+    def recur_DFS(node, first_node, marked):  # a recursive dfs to visit all the paths to see if a cycle exists
+        marked.add(node)
+        for incident_node in G.adj[node]:
+            if incident_node not in marked:
+                if recur_DFS(incident_node, node, marked):
+                    return True
+            else:
+                if incident_node != first_node:
+                    return True
         return False
 
-    if (not G.adj):
-        return False
-
-    else:
-        for each_node in G.adj:
-            if decision_DFS3(each_node):
-                return True
+    markedNodes = set()
+    for node in G.adj:
+        if node not in markedNodes and recur_DFS(node, None, markedNodes):
+            return True
 
     return False
 
 
-def Is_connected(G):  # TODO confirm if checking all nodes are visited or smth else
+def Is_connected(G):
+    if not G.adj:
+        return False
+
     start_node = next(iter(G.adj))
-    visited = set()
+    markedNodes = set()
 
-    for node in G.adj:  # TODO confirm if we can use normal DFS or DFS2
-        if node != start_node:
-            path = DFS2(G, start_node, node)
+    def recur_DFS(each_node):
+        markedNodes.add(each_node)
 
-            for each_node in path:
-                visited.add(each_node)
+        for incident_node in G.adj[each_node]:
+            if incident_node not in markedNodes:
+                recur_DFS(incident_node)
 
-            # print(start_node, node, path, visited)
+    recur_DFS(start_node)
 
-    return G.adj.keys() == visited
+    return len(markedNodes) == len(G.adj)
 
 
 # Use the methods below to determine minimum Vertex Covers
@@ -244,12 +236,8 @@ print(rand_G.adj)
 print(has_cycle(rand_G))
 print(Is_connected(rand_G))
 
-G = Graph(0)
-G.add_node()
-G.add_node()
-G.add_node()
-G.add_node()
-G.add_node()
+
+G = Graph(10000)
 G.add_edge(0, 1)
 G.add_edge(0, 2)
 G.add_edge(1, 3)
@@ -257,3 +245,5 @@ G.add_edge(2, 3)
 print(has_cycle(G))
 print(Is_connected(G))
 """
+
+
