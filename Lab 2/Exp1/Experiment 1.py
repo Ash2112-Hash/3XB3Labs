@@ -2,60 +2,41 @@
 # Functions and methodology designated to running experiment 1 involving cycles in random graphs
 
 # Imports the following libraries required for the experiment functions
-import timeit
 import matplotlib.pyplot as plot
 from graph import *
 
 
-
-def conduct_AverageRuns(averageRunCount):
-    prob_sum = 0
-
-    for num in range(averageRunCount):
-        #TODO CREATE RANDOM GRAPH
-        G = Graph(0)
-
-        if(has_cycle(G)):
-            prob_sum+=1
-
-
-
-    return prob_sum/averageRunCount
-
-
-
-
-def plot_RandomGCycleProb(test_runs, average_runs):
-    edge_quantity = []
+def plot_RandomGCycleProb(average_runs, node_count, edge_count):
+    edge_quantities = []
     cycle_probs = []
-    edge_count = 0
+    maxEdges = int(node_count * ((node_count-1)/2))
+    num_edges = maxEdges if edge_count > maxEdges else edge_count
 
+    for edge_num in range(0, num_edges + 1, 2):
+        cycleProbCounter = 0
 
-    for each_run in range(test_runs):
+        for _ in range(average_runs):
+            G = create_random_graph(node_count, edge_num)
+            #print(G.adj)
+            #print(G.number_of_nodes())
 
-        """create random graph
-            fix node count to 100
-            increase edge count each time - 10
-            
-        
-        """
+            if(has_cycle(G)):
+                cycleProbCounter += 1
 
-        Avgcycle_prob = conduct_AverageRuns(average_runs)
-        cycle_probs.append(Avgcycle_prob)
-        edge_quantity.append(edge_count)
-        edge_count += 10
+        cycle_probs.append(cycleProbCounter/average_runs)
+        edge_quantities.append(edge_num)
+        #print(cycle_probs)
 
-
-
-    # plots the runtimes of the 3 sorting algorithms with the following legends and axis titles
-    plot.plot(edge_quantity, cycle_probs, label='Cycle Probability')
+    plot.plot(edge_quantities, cycle_probs, label='Cycle Probability')
     plot.xlabel('Number of Edges (n edges)')
     plot.ylabel('Cycle Probability')
     plot.title("Probability of Cycle within Random Graph based on Edge Quantity")
     plot.show()
 
 
-plot_RandomGCycleProb(10, 10)
+plot_RandomGCycleProb(10, 10, 10)
+plot_RandomGCycleProb(20, 50, 30)
+plot_RandomGCycleProb(20, 60, 100)
 
 
 

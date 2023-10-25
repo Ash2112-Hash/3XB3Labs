@@ -25,6 +25,7 @@ def test_connected(num_nodes, num_edges, test_runs):
 
         track_edges.append(i)
 
+    #TODO may need to confirm if method is correct
 
     #plotting the graph
     plt.plot(track_edges, probabilities)
@@ -32,7 +33,7 @@ def test_connected(num_nodes, num_edges, test_runs):
     plt.ylabel('Likelihood')
     plt.title('Likelihood of Graph Being Connected With ' + str(num_nodes) + ' Nodes')
     plt.show()
-    return None
+
 
 def main():
     test_connected(20, 60, 100)
