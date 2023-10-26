@@ -1,5 +1,8 @@
-from graph import is_vertex_cover
+import random
+
+from graph import *
 from random import randint
+
 
 def approx1(G):
     C = set()
@@ -10,7 +13,7 @@ def approx1(G):
         nodes.append(node)
         degree = len(G.adjacent_nodes(node))
         degrees.append(degree)
-    while is_vertex_cover(G2, C) == False:
+    while is_vertex_cover(G, C) == False:
         v = max(degrees)
         i = degrees.index(v)
         max_node = nodes[i]
@@ -20,11 +23,14 @@ def approx1(G):
         del degrees[i]
     return C
 
+
 def approx2(G):
     C = set()
     nodes = []
+
     for node in G.adj:
         nodes.append(node)
+
     while is_vertex_cover(G, C) == False:
         rand_node = randint(0, len(nodes) - 1)
         C.add(nodes[rand_node])
@@ -34,27 +40,58 @@ def approx2(G):
 
 def approx3(G):
     C = set()
-    edges = []
     G2 = G.copy()
+    # print(G2.adj == G.adj)
 
-    for FirstNode in G2.adj:
-        for SecNode in G2.adj[FirstNode]:
-            edges.append([FirstNode, SecNode])
+    while not is_vertex_cover(G, C):
 
-            if [SecNode, FirstNode] in edges and [FirstNode, SecNode] in edges:
-                edges.remove([SecNode, FirstNode])
+        u = random.choice(list(G2.adj.keys()))
 
+        if G2.adj[u]:           #TODO add check to other approx functions
+            v = random.choice(G2.adj[u])
 
-    while not is_vertex_cover(G2, C):
-        rand_edge = edges[randint(0, len(edges) - 1)]
-        C.add(rand_edge[0])
-        C.add(rand_edge[1])
+        else:
+            continue
 
-        # how to remove edges
-        for incident_edges in G2.adj[rand_edge[0]]:
-            G2.adj[rand_edge[0]].remove(incident_edges)
+        # print(u, v)
+        # print(G2.adj)
+        # print(G2.adj[u])
+        # print(G2.adj[v])
+        C.add(u)
+        C.add(v)
 
-        for incident_edges in G2.adj[rand_edge[1]]:
-            G2.adj[rand_edge[1]].remove(incident_edges)
+        for node in G2.adj[u]:
+            if node != v and node != u:
+                G2.adj[u].remove(node)
+                G2.adj[node].remove(u)
+
+        for node in G2.adj[v]:
+            if node != v and node != u:
+                G2.adj[v].remove(node)
+                G2.adj[node].remove(v)
 
     return C
+
+
+"""
+#### TODO TESTING, NEED TO REMOVE LATER ####
+G = Graph(0)
+G.add_node()
+G.add_node()
+G.add_node()
+G.add_node()
+G.add_node()
+G.add_node()
+G.add_edge(0, 1)
+G.add_edge(0, 2)
+G.add_edge(1, 3)
+G.add_edge(2, 4)
+G.add_edge(4, 5)
+
+li = [1]
+
+for i in range(50):
+    G2 = create_random_graph(50, 100)
+    print(approx3(G2))
+    print(MVC(G2))
+"""
