@@ -13,7 +13,7 @@ def approx1(G):
         nodes.append(node)
         degree = len(G.adjacent_nodes(node))
         degrees.append(degree)
-    while is_vertex_cover(G, C) == False:
+    while is_vertex_cover(G, C) == False and len(degrees) != 0:
         v = max(degrees)
         i = degrees.index(v)
         max_node = nodes[i]
