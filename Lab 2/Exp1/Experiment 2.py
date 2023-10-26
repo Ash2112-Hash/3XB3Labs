@@ -10,7 +10,7 @@ def test_connected(num_nodes, num_edges, test_runs):
     maxEdges = int(num_nodes * ((num_nodes - 1) / 2))
     edge_count = maxEdges if num_edges > maxEdges else num_edges
 
-    for i in range(0, edge_count + 1, 2):
+    for i in range(0, edge_count + 1, 10):
         connected_ProbCounter = 0
 
         for j in range(test_runs):
@@ -33,9 +33,9 @@ def test_connected(num_nodes, num_edges, test_runs):
 
 
 def main():
-    test_connected(20, 60, 100)
-    test_connected(40, 80, 100)
-    test_connected(100, 200, 100)
+    test_connected(20, 80, 300)
+    test_connected(40, 160, 300)
+    test_connected(100, 400, 300)
 
 
 main()
