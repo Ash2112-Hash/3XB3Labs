@@ -30,9 +30,9 @@ class Graph:
     def copy(self):     #TODO confirm with TA if need to be moved
         copied_G = Graph(self.number_of_nodes())
 
-        for parent_node, incident_node in self.adj.items():
+        for parent_node, adjancent_node in self.adj.items():
 
-            for each_node in incident_node:
+            for each_node in adjancent_node:
                 copied_G.add_edge(parent_node, each_node)
 
         return copied_G
@@ -150,12 +150,12 @@ def DFS3(G, first_node):
 def has_cycle(G):
     def recur_DFS(node, first_node, marked):  # a recursive dfs to visit all the paths to see if a cycle exists
         marked.add(node)
-        for incident_node in G.adj[node]:
-            if incident_node not in marked:
-                if recur_DFS(incident_node, node, marked):
+        for adjancent_node in G.adj[node]:
+            if adjancent_node not in marked:
+                if recur_DFS(adjancent_node, node, marked):
                     return True
             else:
-                if incident_node != first_node:
+                if adjancent_node != first_node:
                     return True
         return False
 
@@ -177,9 +177,9 @@ def Is_connected(G):
     def recur_DFS(each_node):
         markedNodes.add(each_node)
 
-        for incident_node in G.adj[each_node]:
-            if incident_node not in markedNodes:
-                recur_DFS(incident_node)
+        for adjancent_node in G.adj[each_node]:
+            if adjancent_node not in markedNodes:
+                recur_DFS(adjancent_node)
 
     recur_DFS(start_node)
 
@@ -253,7 +253,7 @@ G.add_edge(1, 3)
 G.add_edge(2, 3)
 print(has_cycle(G))
 print(Is_connected(G))
-"""
+
 
 G = Graph(0)
 G.add_node()
@@ -268,29 +268,5 @@ G.add_edge(1, 3)
 G.add_edge(2, 4)
 G.add_edge(4, 5)
 
-C = set()
-edges = []
-G2 = G.copy()
+"""
 
-for FirstNode in G2.adj:
-    for SecNode in G2.adj[FirstNode]:
-        edges.append([FirstNode, SecNode])
-
-        if [SecNode, FirstNode] in edges and [FirstNode, SecNode] in edges:
-            edges.remove([SecNode, FirstNode])
-
-while not is_vertex_cover(G2, C):
-    rand_edge = edges[randint(0, len(edges) - 1)]
-    C.add(rand_edge[0])
-    C.add(rand_edge[1])
-
-    # how to remove edges
-    for incident_edges in G2.adj[rand_edge[0]]:
-        G2.adj[rand_edge[0]].remove(incident_edges)
-
-    for incident_edges in G2.adj[rand_edge[1]]:
-        G2.adj[rand_edge[1]].remove(incident_edges)
-
-
-print(C)
-print(MVC(G))
