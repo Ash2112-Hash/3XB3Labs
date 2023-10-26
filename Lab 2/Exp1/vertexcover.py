@@ -15,9 +15,8 @@ def approx1(G):
         i = degrees.index(v)
         max_node = nodes[i]
         C.add(max_node)
-        del max_node
         G2.adjacent_nodes(max_node).clear()
-        nodes.adj[i].clear()
+        del max_node
         del degrees[i]
     return C
 

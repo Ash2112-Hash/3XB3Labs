@@ -4,57 +4,51 @@ import graph
 import vertexcover
 import matplotlib.pyplot as plt
 
-
-'''
 # ******Graphing*******
 
-def test_connected(num_nodes, num_edges, test_runs):
-    probabilities = []
-    connected_or_not = []
+def vc_test(num_nodes, test_runs):
+    # This runs the test that was described in the lab manual under the "approximation experiments" section
     track_edges = []
+    mvc_sums = []
+    approx1_sums = []
+    approx2_sums = []
+    approx3_sums = []
 
-    for i in range(0, num_edges + 1, 2):
+    for i in range(31):
+        mvc_sum = 0
+        approx1_sum = 0
+        approx2_sum = 0
+        approx3_sum = 0
 
         for j in range(test_runs):
             G = graph.create_random_graph(num_nodes, i)
-            connected = graph.Is_connected(G)
-            connected_or_not.append(connected)
 
-        counter = 0
-        for element in connected_or_not:
-            if element == True:
-                counter += 1
-        
-        probability = counter / len(connected_or_not)
-        probabilities.append(probability)
+            mvc_sum += len(graph.MVC(G))
+            approx1_sum += len(vertexcover.approx1(G))
+            approx2_sum += len(vertexcover.approx2(G))
+            approx3_sum += len(vertexcover.approx3(G))
 
+        mvc_sums.append(mvc_sum)
+        approx1_sums.append(approx1_sum)
+        approx2_sums.append(approx2_sum)
+        approx3_sums.append(approx3_sum)
         track_edges.append(i)
 
 
-    #plotting the graph
-    plt.plot(track_edges, probabilities)
+    # plotting the graph
+    plt.plot(track_edges, mvc_sums)
+    plt.plot(track_edges, approx1_sums)
+    plt.plot(track_edges, approx2_sums)
+    plt.plot(track_edges, approx3_sums)
     plt.xlabel('Number of Edges')
-    plt.ylabel('Likelihood')
-    plt.title('Likelihood of Graph Being Connected With ' + str(num_nodes) + ' Nodes')
+    plt.ylabel('Sum of Vertex Cover Lengths')
+    plt.title('Vertex Cover Lengths Using Different Approximation Methods')
+    plt.legend(['Minimum Vertex Cover', 'Approximation 1', 'Approximation 2', 'Approximation 3'])
     plt.show()
-    return None
-'''
+
+
 def main():
-    G = graph.create_random_graph(7, 9)
-    H = graph.create_random_graph(10, 23)
-    I = graph.create_random_graph(20, 20)
+    vc_test(8, 1000)
 
-    C = vertexcover.approx2(G)
-    D = vertexcover.approx2(H)
-    E = vertexcover.approx2(I)
 
-    for item in C:
-        print(item)
-
-    for item in D:
-        print(item)
-
-    for item in E:
-        print(item)
-        
 main()
