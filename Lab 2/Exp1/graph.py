@@ -146,7 +146,7 @@ def DFS3(G, first_node):
 
     return predecessor
 
-
+#NOTE: in our implementation, has cycle does include self loops within the graph where a cycle is present
 def has_cycle(G):
     def recur_DFS(node, first_node, marked):  # a recursive dfs to visit all the paths to see if a cycle exists
         marked.add(node)
@@ -263,10 +263,13 @@ G.add_node()
 G.add_node()
 G.add_node()
 G.add_edge(0, 1)
+G.add_edge(0, 0)
 G.add_edge(0, 2)
 G.add_edge(1, 3)
 G.add_edge(2, 4)
-G.add_edge(4, 5)
 
+print(has_cycle(G))
+print(Is_connected(G))
 """
+
 
