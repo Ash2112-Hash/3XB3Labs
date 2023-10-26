@@ -1,5 +1,5 @@
 from graph import is_vertex_cover
-import random
+from random import randint
 
 def approx1(G):
     C = set()
@@ -27,7 +27,7 @@ def approx2(G):
     for node in G.adj:
         nodes.append(node)
     while is_vertex_cover(G, C) == False:
-        rand_node = random.randint(0, len(nodes) - 1)
+        rand_node = randint(0, len(nodes) - 1)
         C.add(nodes[rand_node])
         del nodes[rand_node]
     return C
@@ -46,21 +46,16 @@ def approx3(G):
                 edges.remove([SecNode, FirstNode])
 
 
-    while not is_vertex_cover(G, C):
-        rand_edge = edges[random.randint(0, len(edges)-1)]
+    while not is_vertex_cover(G2, C):
+        rand_edge = edges[randint(0, len(edges) - 1)]
         C.add(rand_edge[0])
         C.add(rand_edge[1])
 
+        # how to remove edges
+        for incident_edges in G2.adj[rand_edge[0]]:
+            G2.adj[rand_edge[0]].remove(incident_edges)
 
+        for incident_edges in G2.adj[rand_edge[1]]:
+            G2.adj[rand_edge[1]].remove(incident_edges)
 
-
-
-
-"""
-    #get list of all the edges in G 
-    while graph.is_vertex_cover(G, C) == False:
-        rand_edge = random.randint(0, len(edges))
-        C.add(edges[rand_edge])
-        del edges[rand_edge]
     return C
-"""

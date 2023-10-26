@@ -19,7 +19,7 @@ def plot_RandomGCycleProb(average_runs, node_count, edge_count):
             #print(G.adj)
             #print(G.number_of_nodes())
 
-            if(has_cycle(G)):
+            if has_cycle(G):
                 cycleProbCounter += 1
 
         cycle_probs.append(cycleProbCounter/average_runs)
@@ -37,6 +37,7 @@ def main():
     plot_RandomGCycleProb(10, 10, 10)
     plot_RandomGCycleProb(20, 50, 30)
     plot_RandomGCycleProb(20, 60, 100)
+    plot_RandomGCycleProb(20, 60, 1000000)
 
 
 main()

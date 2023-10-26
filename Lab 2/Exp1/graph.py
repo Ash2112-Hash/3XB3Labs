@@ -27,6 +27,16 @@ class Graph:
     def number_of_nodes(self):
         return len(self.adj)
 
+    def copy(self):     #TODO confirm with TA if need to be moved
+        copied_G = Graph(self.number_of_nodes())
+
+        for parent_node, incident_node in self.adj.items():
+
+            for each_node in incident_node:
+                copied_G.add_edge(parent_node, each_node)
+
+        return copied_G
+
 
 # Breadth First Search
 def BFS(G, node1, node2):
@@ -137,7 +147,6 @@ def DFS3(G, first_node):
     return predecessor
 
 
-
 def has_cycle(G):
     def recur_DFS(node, first_node, marked):  # a recursive dfs to visit all the paths to see if a cycle exists
         marked.add(node)
@@ -200,7 +209,7 @@ def is_vertex_cover(G, C):
 
 
 def MVC(G):
-    nodes = [i for i in range(G.get_size())]
+    nodes = [i for i in range(G.number_of_nodes())]
     subsets = power_set(nodes)
     min_cover = nodes
     for subset in subsets:
@@ -246,4 +255,42 @@ print(has_cycle(G))
 print(Is_connected(G))
 """
 
+G = Graph(0)
+G.add_node()
+G.add_node()
+G.add_node()
+G.add_node()
+G.add_node()
+G.add_node()
+G.add_edge(0, 1)
+G.add_edge(0, 2)
+G.add_edge(1, 3)
+G.add_edge(2, 4)
+G.add_edge(4, 5)
 
+C = set()
+edges = []
+G2 = G.copy()
+
+for FirstNode in G2.adj:
+    for SecNode in G2.adj[FirstNode]:
+        edges.append([FirstNode, SecNode])
+
+        if [SecNode, FirstNode] in edges and [FirstNode, SecNode] in edges:
+            edges.remove([SecNode, FirstNode])
+
+while not is_vertex_cover(G2, C):
+    rand_edge = edges[randint(0, len(edges) - 1)]
+    C.add(rand_edge[0])
+    C.add(rand_edge[1])
+
+    # how to remove edges
+    for incident_edges in G2.adj[rand_edge[0]]:
+        G2.adj[rand_edge[0]].remove(incident_edges)
+
+    for incident_edges in G2.adj[rand_edge[1]]:
+        G2.adj[rand_edge[1]].remove(incident_edges)
+
+
+print(C)
+print(MVC(G))
