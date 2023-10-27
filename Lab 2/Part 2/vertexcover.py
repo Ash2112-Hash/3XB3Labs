@@ -13,7 +13,8 @@ def approx1(G):
         nodes.append(node)
         degree = len(G.adjacent_nodes(node))
         degrees.append(degree)
-    while is_vertex_cover(G, C) == False and len(degrees) != 0:
+
+    while not is_vertex_cover(G, C) and len(degrees) != 0:  # TODO confirm this
         v = max(degrees)
         i = degrees.index(v)
         max_node = nodes[i]
@@ -26,15 +27,18 @@ def approx1(G):
 
 def approx2(G):
     C = set()
-    nodes = []
+    G2 = G.copy()
+    nodes = list(G2.adj.keys())
 
-    for node in G.adj:
-        nodes.append(node)
+    while not is_vertex_cover(G, C):
+        if nodes:
+            v = random.choice(nodes)
 
-    while is_vertex_cover(G, C) == False:
-        rand_node = randint(0, len(nodes) - 1)
-        C.add(nodes[rand_node])
-        del nodes[rand_node]
+            if v not in C:
+                C.add(v)
+
+            else:
+                continue
     return C
 
 
@@ -47,7 +51,7 @@ def approx3(G):
 
         u = random.choice(list(G2.adj.keys()))
 
-        if G2.adj[u]:           #TODO add check to other approx functions
+        if G2.adj[u]:  # TODO add check to other approx functions
             v = random.choice(G2.adj[u])
 
         else:
