@@ -27,15 +27,18 @@ def approx1(G):
 
 def approx2(G):
     C = set()
-    nodes = []
+    G2 = G.copy()
+    nodes = list(G2.adj.keys())
 
-    for node in G.adj:
-        nodes.append(node)
+    while not is_vertex_cover(G, C):
+        if nodes:
+            v = random.choice(nodes)
 
-    while is_vertex_cover(G, C) == False:
-        rand_node = randint(0, len(nodes) - 1)
-        C.add(nodes[rand_node])
-        del nodes[rand_node]
+            if v not in C:
+                C.add(v)
+
+            else:
+                continue
     return C
 
 
@@ -48,7 +51,7 @@ def approx3(G):
 
         u = random.choice(list(G2.adj.keys()))
 
-        if G2.adj[u]:           #TODO add check to other approx functions
+        if G2.adj[u]:  # TODO add check to other approx functions
             v = random.choice(G2.adj[u])
 
         else:
@@ -96,7 +99,3 @@ for i in range(50):
     print(approx3(G2))
     print(MVC(G2))
 """
-
-G2 = create_random_graph(10, 20)
-print(approx1(G2))
-print(MVC(G2))
