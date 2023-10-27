@@ -13,13 +13,14 @@ def approx1(G):
         nodes.append(node)
         degree = len(G.adjacent_nodes(node))
         degrees.append(degree)
-    while is_vertex_cover(G, C) == False and len(degrees) != 0:
+    while not is_vertex_cover(G, C) and len(degrees) != 0:
         v = max(degrees)
         i = degrees.index(v)
         max_node = nodes[i]
         C.add(max_node)
-        G2.adjacent_nodes(max_node).clear()
-        del max_node
+        edges = G2.adjacent_nodes(max_node)
+        del edges
+        del nodes[i]
         del degrees[i]
     return C
 
@@ -95,3 +96,7 @@ for i in range(50):
     print(approx3(G2))
     print(MVC(G2))
 """
+
+G2 = create_random_graph(10, 20)
+print(approx1(G2))
+print(MVC(G2))

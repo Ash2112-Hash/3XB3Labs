@@ -50,6 +50,6 @@ def vc_test(num_nodes, test_runs):
 def main():
     vc_test(8, 1000)
     vc_test(5, 1000)
-    vc_test(20, 1000)
+    ##vc_test(20, 1000)
 
 main()
