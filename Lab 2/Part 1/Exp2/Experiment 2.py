@@ -22,8 +22,6 @@ def test_connected(num_nodes, num_edges, test_runs):
         probabilities.append(connected_ProbCounter / test_runs)
         track_edges.append(i)
 
-    # TODO may need to confirm if method is correct
-
     # plotting the graph
     plt.plot(track_edges, probabilities, marker = 'o')
     plt.xlabel('Number of Edges')

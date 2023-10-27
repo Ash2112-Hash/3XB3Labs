@@ -75,7 +75,7 @@ def approx3(G):
                 G2.adj[v].remove(node)
                 G2.adj[node].remove(v)
 
-        print(G2.adj)
+        #print(G2.adj)
 
     return C
 
