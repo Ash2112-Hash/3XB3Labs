@@ -28,10 +28,17 @@ def vce_test(num_nodes, test_runs, num_edges, edgeIncrease_factor):
             approx2_sum += len(approx2(G))
             approx3_sum += len(approx3(G))
 
-        MVC_sums.append(MVC_sum / test_runs)
-        approx1_sums.append(approx1_sum / test_runs)
-        approx2_sums.append(approx2_sum / test_runs)
-        approx3_sums.append(approx3_sum / test_runs)
+        if MVC_sum == 0:
+            MVC_sums.append(0)
+            approx1_sums.append(approx1_sum)
+            approx2_sums.append(approx2_sum)
+            approx3_sums.append(approx3_sum)
+        else:
+            MVC_sums.append(MVC_sum / MVC_sum)
+            approx1_sums.append(approx1_sum / MVC_sum)
+            approx2_sums.append(approx2_sum / MVC_sum)
+            approx3_sums.append(approx3_sum / MVC_sum)
+
         track_edges.append(i)
 
 
@@ -41,8 +48,8 @@ def vce_test(num_nodes, test_runs, num_edges, edgeIncrease_factor):
     plt.plot(track_edges, approx2_sums)
     plt.plot(track_edges, approx3_sums)
     plt.xlabel('Number of Edges')
-    plt.ylabel('Average Vertex Cover Size')
-    plt.title('Vertex Cover Sizes For Graphs With ' + str(num_nodes) + ' Nodes')
+    plt.ylabel('Expected Performance')
+    plt.title('Expected VC Approximation Performance for Graphs with ' + str(num_nodes) + ' Nodes')
     plt.legend(['Minimum Vertex Cover', 'Approximation 1', 'Approximation 2', 'Approximation 3'])
     plt.show()
 
@@ -68,10 +75,17 @@ def vcn_test(num_nodes, test_runs, num_edges, nodeIncrease_factor):
             approx2_sum += len(approx2(G))
             approx3_sum += len(approx3(G))
 
-        MVC_sums.append(MVC_sum / test_runs)
-        approx1_sums.append(approx1_sum / test_runs)
-        approx2_sums.append(approx2_sum / test_runs)
-        approx3_sums.append(approx3_sum / test_runs)
+        if MVC_sum == 0:
+            MVC_sums.append(0)
+            approx1_sums.append(approx1_sum)
+            approx2_sums.append(approx2_sum)
+            approx3_sums.append(approx3_sum)
+        else:
+            MVC_sums.append(MVC_sum / MVC_sum)
+            approx1_sums.append(approx1_sum / MVC_sum)
+            approx2_sums.append(approx2_sum / MVC_sum)
+            approx3_sums.append(approx3_sum / MVC_sum)
+        
         track_nodes.append(i)
 
 
@@ -81,8 +95,8 @@ def vcn_test(num_nodes, test_runs, num_edges, nodeIncrease_factor):
     plt.plot(track_nodes, approx2_sums)
     plt.plot(track_nodes, approx3_sums)
     plt.xlabel('Number of Nodes')
-    plt.ylabel('Average Vertex Cover Length')
-    plt.title('Vertex Cover Sizes For Graphs With ' + str(num_edges) + ' Edges')
+    plt.ylabel('Expected Performance')
+    plt.title('Expected VC Approximation Performance for Graphs with ' + str(num_edges) + ' Edges')
     plt.legend(['Minimum Vertex Cover', 'Approximation 1', 'Approximation 2', 'Approximation 3'])
     plt.show()
 
