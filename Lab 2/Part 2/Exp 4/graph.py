@@ -290,7 +290,3 @@ while not is_vertex_cover(G2, C):
 
     for incident_edges in G2.adj[rand_edge[1]]:
         G2.adj[rand_edge[1]].remove(incident_edges)
-
-
-print(C)
-print(MVC(G))
