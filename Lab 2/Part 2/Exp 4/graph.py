@@ -236,25 +236,6 @@ def create_random_graph(i, j):
 
     return rand_graph
 
-
-### TODO TESTING REMOVE LATER #######################################
-"""
-rand_G = create_random_graph(5, 10)
-print(rand_G.number_of_nodes())
-print(rand_G.adj)
-print(has_cycle(rand_G))
-print(Is_connected(rand_G))
-
-
-G = Graph(10000)
-G.add_edge(0, 1)
-G.add_edge(0, 2)
-G.add_edge(1, 3)
-G.add_edge(2, 3)
-print(has_cycle(G))
-print(Is_connected(G))
-"""
-
 G = Graph(0)
 G.add_node()
 G.add_node()

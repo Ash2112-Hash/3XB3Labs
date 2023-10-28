@@ -22,21 +22,9 @@ def MIS(G):
 X = ['5 Nodes', '10 Nodes', '15 Nodes', '20 Nodes']
 
 G1 = create_random_graph(5,10)
-print(G1.adj)
-print(MIS(G1))
-print(MVC(G1))
 G2 = create_random_graph(10,20)
-print(G2.adj)
-print(MIS(G2))
-print(MVC(G2))
 G3 = create_random_graph(15,30)
-print(G3.adj)
-print(MIS(G3))
-print(MVC(G3))
 G4 = create_random_graph(20,40)
-print(G4.adj)
-print(MIS(G4))
-print(MVC(G4))
 
 max_idpt_set = [len(MIS(G1)), len(MIS(G2)), len(MIS(G3)), len(MIS(G4))]
 min_ver_cov = [len(MVC(G1)), len(MVC(G2)), len(MVC(G3)), len(MVC(G4))]
