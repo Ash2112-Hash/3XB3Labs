@@ -23,7 +23,7 @@ X = ['5 Nodes', '10 Nodes', '15 Nodes', '20 Nodes']
 
 G1 = create_random_graph(5,10)
 G2 = create_random_graph(10,20)
-G3 = create_random_graph(15,20)
+G3 = create_random_graph(15,30)
 G4 = create_random_graph(20,40)
 
 max_idpt_set = [len(MIS(G1)), len(MIS(G2)), len(MIS(G3)), len(MIS(G4))]
