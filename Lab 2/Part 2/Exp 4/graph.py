@@ -230,7 +230,7 @@ def create_random_graph(i, j):
     while j > 0:
         a = randint(0, i - 1)
         b = randint(0, i - 1)
-        if (a != b) or (b not in rand_graph.adj[a]):
+        if (a != b) and (b not in rand_graph.adj[a]) and (a not in rand_graph.adj[b]):
             rand_graph.add_edge(a, b)
             j -= 1  # decrease j to continue loop and randomization process until no edges are left
 
