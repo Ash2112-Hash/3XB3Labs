@@ -235,39 +235,3 @@ def create_random_graph(i, j):
             j -= 1  # decrease j to continue loop and randomization process until no edges are left
 
     return rand_graph
-
-G = Graph(0)
-G.add_node()
-G.add_node()
-G.add_node()
-G.add_node()
-G.add_node()
-G.add_node()
-G.add_edge(0, 1)
-G.add_edge(0, 2)
-G.add_edge(1, 3)
-G.add_edge(2, 4)
-G.add_edge(4, 5)
-
-C = set()
-edges = []
-G2 = G.copy()
-
-for FirstNode in G2.adj:
-    for SecNode in G2.adj[FirstNode]:
-        edges.append([FirstNode, SecNode])
-
-        if [SecNode, FirstNode] in edges and [FirstNode, SecNode] in edges:
-            edges.remove([SecNode, FirstNode])
-
-while not is_vertex_cover(G2, C):
-    rand_edge = edges[randint(0, len(edges) - 1)]
-    C.add(rand_edge[0])
-    C.add(rand_edge[1])
-
-    # how to remove edges
-    for incident_edges in G2.adj[rand_edge[0]]:
-        G2.adj[rand_edge[0]].remove(incident_edges)
-
-    for incident_edges in G2.adj[rand_edge[1]]:
-        G2.adj[rand_edge[1]].remove(incident_edges)
