@@ -75,34 +75,7 @@ def approx3(G):
                 G2.adj[v].remove(node)
                 G2.adj[node].remove(v)
 
-        print(G2.adj)
+        #print(G2.adj)
 
     return C
 
-
-"""
-#### TODO TESTING, NEED TO REMOVE LATER ####
-G = Graph(0)
-G.add_node()
-G.add_node()
-G.add_node()
-G.add_node()
-G.add_node()
-G.add_node()
-G.add_node()
-G.add_node()
-G.add_edge(0, 1)
-G.add_edge(0, 2)
-G.add_edge(1, 3)
-G.add_edge(2, 4)
-G.add_edge(4, 5)
-G.add_edge(5, 6)
-G.add_edge(3, 7)
-print(approx3(G))
-
-
-for i in range(50):
-    G2 = create_random_graph(50, 100)
-    print(approx3(G2))
-    print(MVC(G2))
-"""

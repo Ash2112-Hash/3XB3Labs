@@ -27,12 +27,12 @@ class Graph:
     def number_of_nodes(self):
         return len(self.adj)
 
-    def copy(self):     #returns a copy of the graph object
+    def copy(self):     #TODO confirm with TA if need to be moved
         copied_G = Graph(self.number_of_nodes())
 
-        for parent_node, adjacent_node in self.adj.items():
+        for parent_node, incident_node in self.adj.items():
 
-            for each_node in adjacent_node:
+            for each_node in incident_node:
                 copied_G.add_edge(parent_node, each_node)
 
         return copied_G
@@ -146,28 +146,19 @@ def DFS3(G, first_node):
 
     return predecessor
 
-# has_cycle(G) function determines if a graph: G has a cycle within it
-#NOTE: in our implementation, has cycle does include self loops within the graph where a cycle is present
-def has_cycle(G):
 
-    # a recursive dfs to visit all the paths to see if a cycle exists. If cycle exits, return True, otherwise return false
-    def recur_DFS(node, first_node, marked):
+def has_cycle(G):
+    def recur_DFS(node, first_node, marked):  # a recursive dfs to visit all the paths to see if a cycle exists
         marked.add(node)
-        for adjacent_node in G.adj[node]:
-            if adjacent_node not in marked:
-                if recur_DFS(adjacent_node, node, marked):
+        for incident_node in G.adj[node]:
+            if incident_node not in marked:
+                if recur_DFS(incident_node, node, marked):
                     return True
             else:
-                if adjacent_node != first_node:
+                if incident_node != first_node:
                     return True
         return False
 
-    # if a graph is empty, return false
-    if not G.adj:
-        return False
-
-
-    # iterates through all nodes of the graph and applies the recur_DFS to determine if a cycle exists (markedNodes is used to track visited nodes)
     markedNodes = set()
     for node in G.adj:
         if node not in markedNodes and recur_DFS(node, None, markedNodes):
@@ -176,31 +167,22 @@ def has_cycle(G):
     return False
 
 
-# Is_connected(G) function determines if all node pairs within a graph is connected
 def Is_connected(G):
-
-    # if a graph is empty, return false
     if not G.adj:
         return False
 
-    # access the start node of the graph
     start_node = next(iter(G.adj))
-
-    # markedNodes is used to track visited nodes
     markedNodes = set()
 
-    # a recursive dfs to visit all the paths to see if the node pairs are connected
     def recur_DFS(each_node):
         markedNodes.add(each_node)
 
-        for adjacent_node in G.adj[each_node]:
-            if adjacent_node not in markedNodes:
-                recur_DFS(adjacent_node)
+        for incident_node in G.adj[each_node]:
+            if incident_node not in markedNodes:
+                recur_DFS(incident_node)
 
-    # start the recursion on first node
     recur_DFS(start_node)
 
-    # return if the length of the markedNodes is equal to the length of graph's adjacency list (ie. all node pair paths have been detected if they are all connected)
     return len(markedNodes) == len(G.adj)
 
 
@@ -248,41 +230,8 @@ def create_random_graph(i, j):
     while j > 0:
         a = randint(0, i - 1)
         b = randint(0, i - 1)
-        if (a != b) or (b not in rand_graph.adj[a]):
+        if (a != b) and (b not in rand_graph.adj[a]) and (a not in rand_graph.adj[b]):
             rand_graph.add_edge(a, b)
             j -= 1  # decrease j to continue loop and randomization process until no edges are left
 
     return rand_graph
-
-
-### TODO TESTING REMOVE LATER #######################################
-"""
-rand_G = create_random_graph(5, 10)
-print(rand_G.number_of_nodes())
-print(rand_G.adj)
-print(has_cycle(rand_G))
-print(Is_connected(rand_G))
-
-
-G = Graph(10000)
-G.add_edge(0, 1)
-G.add_edge(0, 2)
-G.add_edge(1, 3)
-G.add_edge(2, 3)
-print(has_cycle(G))
-print(Is_connected(G))
-
-
-G = Graph(0)
-G.add_node()
-G.add_node()
-G.add_node()
-G.add_node()
-G.add_node()
-G.add_node()
-G.add_edge(0, 1)
-G.add_edge(0, 0)
-G.add_edge(0, 2)
-G.add_edge(1, 3)
-G.add_edge(2, 4)
-"""

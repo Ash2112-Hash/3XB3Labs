@@ -230,67 +230,8 @@ def create_random_graph(i, j):
     while j > 0:
         a = randint(0, i - 1)
         b = randint(0, i - 1)
-        if (a != b) or (b not in rand_graph.adj[a]):
+        if (a != b) and (b not in rand_graph.adj[a]) and (a not in rand_graph.adj[b]):
             rand_graph.add_edge(a, b)
             j -= 1  # decrease j to continue loop and randomization process until no edges are left
 
     return rand_graph
-
-
-### TODO TESTING REMOVE LATER #######################################
-"""
-rand_G = create_random_graph(5, 10)
-print(rand_G.number_of_nodes())
-print(rand_G.adj)
-print(has_cycle(rand_G))
-print(Is_connected(rand_G))
-
-
-G = Graph(10000)
-G.add_edge(0, 1)
-G.add_edge(0, 2)
-G.add_edge(1, 3)
-G.add_edge(2, 3)
-print(has_cycle(G))
-print(Is_connected(G))
-"""
-
-G = Graph(0)
-G.add_node()
-G.add_node()
-G.add_node()
-G.add_node()
-G.add_node()
-G.add_node()
-G.add_edge(0, 1)
-G.add_edge(0, 2)
-G.add_edge(1, 3)
-G.add_edge(2, 4)
-G.add_edge(4, 5)
-
-C = set()
-edges = []
-G2 = G.copy()
-
-for FirstNode in G2.adj:
-    for SecNode in G2.adj[FirstNode]:
-        edges.append([FirstNode, SecNode])
-
-        if [SecNode, FirstNode] in edges and [FirstNode, SecNode] in edges:
-            edges.remove([SecNode, FirstNode])
-
-while not is_vertex_cover(G2, C):
-    rand_edge = edges[randint(0, len(edges) - 1)]
-    C.add(rand_edge[0])
-    C.add(rand_edge[1])
-
-    # how to remove edges
-    for incident_edges in G2.adj[rand_edge[0]]:
-        G2.adj[rand_edge[0]].remove(incident_edges)
-
-    for incident_edges in G2.adj[rand_edge[1]]:
-        G2.adj[rand_edge[1]].remove(incident_edges)
-
-
-print(C)
-print(MVC(G))

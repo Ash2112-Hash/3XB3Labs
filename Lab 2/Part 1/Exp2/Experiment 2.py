@@ -1,9 +1,11 @@
+# ******************* Experiment 2 *******************
+# Functions and methodology designated to running experiment 2 involving connectivity of all nodes in random graphs
+
 import graph
 import matplotlib.pyplot as plt
 
 
 # ******Graphing*******
-
 def test_connected(num_nodes, num_edges, test_runs):
     probabilities = []
     track_edges = []
@@ -22,8 +24,6 @@ def test_connected(num_nodes, num_edges, test_runs):
         probabilities.append(connected_ProbCounter / test_runs)
         track_edges.append(i)
 
-    # TODO may need to confirm if method is correct
-
     # plotting the graph
     plt.plot(track_edges, probabilities, marker = 'o')
     plt.xlabel('Number of Edges')
@@ -33,9 +33,11 @@ def test_connected(num_nodes, num_edges, test_runs):
 
 
 def main():
-    test_connected(20, 80, 300)
-    test_connected(40, 160, 300)
-    test_connected(100, 400, 300)
+    test_connected(20, 80, 300)     #Figure 5
+    test_connected(40, 160, 500)    #Figure 6
+    test_connected(100, 400, 300)   #Figure 7
+    test_connected(20, 190, 300)    #Figure 8
+
 
 
 main()
