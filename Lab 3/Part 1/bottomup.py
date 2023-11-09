@@ -7,8 +7,10 @@ def ks_bottom_up(items, capacity):
             # base cases (when there is no weight or value, the profit is 0)
             if value == 0 or weight == 0:
                 matrix[value][weight] = 0
+            # filling in table with 
             elif items[value - 1][0] <= weight:
                 matrix[value][weight] = max(items[value - 1][1] + matrix[value - 1][weight - items[value - 1][0]], matrix[value - 1][weight])
+            # same as previous value if weight of item being checked is more than the current capacity (column)
             else:
                 matrix[value][weight] = matrix[value - 1][weight]
 
