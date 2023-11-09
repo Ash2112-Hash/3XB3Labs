@@ -7,7 +7,7 @@ def subset_sum_rec(numbers, target):
         return False
     if numbers == []:
         return False
-    return subset_sum(numbers[:-1], target, d) or subset_sum(numbers[:-1], target - numbers[-1])
+    return subset_sum_rec(numbers[:-1], target) or subset_sum_rec(numbers[:-1], target - numbers[-1])
 
 
 #************ Bottom Up Solution ************

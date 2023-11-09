@@ -25,6 +25,5 @@ def createRandomSet(numElms, weightMin, weightMax):
 
     return rand_set
 
-
 def plotExp1Results():
     pass
