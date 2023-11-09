@@ -28,23 +28,27 @@ def num_of_wc_runs(n, m):
 def next_setting(n, m):
 	tries = num_of_wc_runs(n, m)
 	settings = []
-	x = tries
-	i = 1
-	while x <= m:
+	binary_search = m
+	for _ in range(1, n-1): #we can mimic a binary search until there are 2 bricks left
+		binary_search = binary_search // 2
+		settings.append(binary_search)
+		tries -= 1
+	j = 1
+	leftover_tries = num_of_wc_runs(2, binary_search)
+	x = leftover_tries
+	while j <= leftover_tries and x < binary_search:
 		settings.append(x)
-		x += (tries - i)
-		i += 1
+		x += (leftover_tries - j)
+		j += 1
 	return settings
 	
 def main():
     #Testing
-    n = 2
+    n = 5
     m = 100
-    print("The number of trials needed in the worst case of", n, "bricks and", m, "test settings is", (num_of_wc_runs(n, m)))
+    print("The number of trials needed in the worst case of", n, "bricks and", m, "test settings is:", (num_of_wc_runs(n, m)))
     settings = next_setting(n, m)
-    print("The optimal test choices for k with", n, "bricks and", m, "test settings is:")
-    for setting in settings:
-        print(setting)
+    print("The optimal test choices for k with", n, "bricks and", m, "test settings are:", next_setting(n,m))
 	
 main()
 
