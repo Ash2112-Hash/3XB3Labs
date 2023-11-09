@@ -16,8 +16,8 @@ def createRandomTupleSet(numElms, valMin, valMax, weightMin, weightMax):
                 NewRand_W = random.randint(weightMin, weightMax)
                 NewRand_val = random.randint(valMin, valMax)
 
-                if (rand_val, rand_W) != (NewRand_val, NewRand_W):
-                    rand_set.add((NewRand_val, NewRand_W))
+                if (rand_W, rand_val) != (NewRand_W, NewRand_val):
+                    rand_set.add((NewRand_W, NewRand_val))
 
         rand_set.add((rand_W, rand_val))
 
@@ -31,3 +31,5 @@ def ks_brute_force(items, capacity):
 
 
 
+L = createRandomTupleSet(10, 0, 10, 0, 100)
+print(L)
