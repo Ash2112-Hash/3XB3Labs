@@ -24,12 +24,27 @@ def num_of_wc_runs(n, m):
 					brickTests[i][j] = placeholder
 
 	return brickTests[n][m]
+
+def next_setting(n, m):
+	tries = num_of_wc_runs(n, m)
+	settings = []
+	x = tries
+	i = 1
+	while x <= m:
+		settings.append(x)
+		x += (tries - i)
+		i += 1
+	return settings
 	
 def main():
     #Testing
     n = 2
     m = 100
     print("The number of trials needed in the worst case of", n, "bricks and", m, "test settings is", (num_of_wc_runs(n, m)))
+    settings = next_setting(n, m)
+    print("The optimal test choices for k with", n, "bricks and", m, "test settings is:")
+    for setting in settings:
+        print(setting)
 	
 main()
 
