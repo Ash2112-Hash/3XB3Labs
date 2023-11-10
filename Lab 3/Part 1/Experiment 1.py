@@ -22,7 +22,7 @@ def plotExp1Results(test_runs, average_runs, increaseItemFactor):
 
     # iterates over the specified number of test runs, creates a new list in each run and conducts average runs for each of the 3 sorting algorithms against the list (in each iteration)
     for num in range(test_runs):
-        L_items = createRandomTupleSet(numItems, valueMin, valueMax, weightMin, weightMax)
+        L_items = createRandomTupleList(numItems, valueMin, valueMax, weightMin, weightMax)
         brute_forceTimeSum = 0
         recTimeSum = 0
 
@@ -60,3 +60,4 @@ def plotExp1Results(test_runs, average_runs, increaseItemFactor):
 
 plotExp1Results(5, 5, 1)
 plotExp1Results(15, 5, 1)
+
