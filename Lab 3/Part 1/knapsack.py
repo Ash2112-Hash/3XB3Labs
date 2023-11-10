@@ -44,3 +44,49 @@ def ks_brute_force(items, capacity):
             max_val = new_value
 
     return max_val
+
+
+
+def ks_rec(items, capacity):
+    max_val = 0
+    i = len(items)
+    j = capacity
+
+    # base case: if j == 0
+    if capacity == 0 or len(items) == 0:
+        return 0
+
+    # base case: if j < 0, return -1 as indicator for N/A, not possible for capacity for < 0
+    elif capacity < 0:
+        return -1
+
+    # base case: if i == 0, max_val will never > 0
+    elif len(items) == 0:
+        return max_val
+
+    else:
+        if items[i - 1][0] > j:
+            return ks_rec(items[:-1], j)
+
+        else:
+            return max(ks_rec(items[:-1], j), ks_rec(items[:-1], j - items[i - 1][0]) + items[i - 1][1])
+
+
+
+# TODO TESTING, remove later
+""" 
+for i in range(20):
+    items = createRandomTupleSet(10, 0, 50, 20, 50)
+    result = ks_rec(items, 25)
+    result2 = ks_brute_force(items, 25)
+    assert result == result2
+    print("Maximum value:", result)
+    print("Maximum value:", result2)
+
+
+items = createRandomTupleSet(10, 0, 50, 20, 50)
+result = ks_rec(items, 25)
+print("Maximum value:", result)
+result2 = ks_brute_force(items, 25)
+print("Maximum value:", result2)
+"""
