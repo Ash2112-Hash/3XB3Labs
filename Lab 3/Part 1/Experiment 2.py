@@ -3,9 +3,9 @@ import matplotlib.pyplot as plot
 from knapsack import *
 
 def TDvsBU(average_runs):
-    capacity = 50
+    capacity = 60
     valMin, weightMin = 0, 0
-    valMax, weightMax = 100, 100
+    valMax, weightMax = 60, 60
 
     list_lens = [n for n in range(1, 700)]
     BU_times = []
@@ -74,3 +74,5 @@ def BUvsTD(average_runs):
     plot.ylabel('Runtime (seconds)')
     plot.title("Runtime vs Number of Items")
     plot.show()
+
+TDvsBU(7)
