@@ -2,28 +2,61 @@
 Functions and cases to test and compare brute force and recursive knapsack solutions.
 """
 
-import random
+import timeit
+from knapsack import *
+import matplotlib.pyplot as plot
 
 
-def createRandomSet(numElms, weightMin, weightMax):
-    rand_set = set()
+def plotExp1Results(test_runs, average_runs, increaseItemFactor):
+    weightMin = 20
+    weightMax = 75
+    valueMin = 1000
+    valueMax = 2000
+    numItems = 0
+    capacity = 0
 
-    if numElms >= weightMax:
-        numElms = weightMax
+    # lists to store the average runtimes computed for each knapsack alg
+    brute_forceTimes = []
+    rec_Times = []
+    item_lens = []
 
-    for _ in range(numElms):
-        rand_elm = random.randint(weightMin, weightMax)
+    # iterates over the specified number of test runs, creates a new list in each run and conducts average runs for each of the 3 sorting algorithms against the list (in each iteration)
+    for num in range(test_runs):
+        L_items = createRandomTupleSet(numItems, valueMin, valueMax, weightMin, weightMax)
+        brute_forceTimeSum = 0
+        recTimeSum = 0
 
-        while rand_elm in rand_set:
-            newRand_elm = random.randint(weightMin, weightMax)
+        for avg_run in range(average_runs):
+            start_time = timeit.default_timer()
+            ks_brute_force(L_items, capacity)
+            end_time = timeit.default_timer()
+            brute_forceTimeSum += (end_time - start_time)
 
-            if rand_elm != newRand_elm and newRand_elm not in rand_set:
-                rand_elm = newRand_elm
-                break
+        for avg_run in range(average_runs):
+            start_time = timeit.default_timer()
+            ks_rec(L_items, capacity)
+            end_time = timeit.default_timer()
+            recTimeSum += (end_time - start_time)
 
-        rand_set.add(rand_elm)
+        item_lens.append(len(L_items))
+        brute_forceTimes.append(brute_forceTimeSum / average_runs)
+        rec_Times.append(recTimeSum / average_runs)
 
-    return rand_set
+        print(item_lens)
+        print(rec_Times)
+        print(brute_forceTimes)
 
-def plotExp1Results():
-    pass
+        # increases the list's capacity by a corresponding factor
+        numItems += increaseItemFactor
+
+    plot.plot(item_lens, brute_forceTimes, label='Brute Force Algorithm')
+    plot.plot(item_lens, rec_Times, label='Recursive Algorithm')
+    plot.legend(loc='upper left', title='Knapsack Algorithms', fontsize=10)
+    plot.xlabel('Number of Items (n items)')
+    plot.ylabel('Runtime (seconds)')
+    plot.title("Recursive vs. Brute Force Knapsack Algorithm")
+    plot.show()
+
+
+plotExp1Results(5, 5, 1)
+plotExp1Results(15, 5, 1)
