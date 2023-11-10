@@ -1,5 +1,4 @@
 
-
 def ks_top_down(items, capacity):
     matrix = [[-1 for n in range(capacity + 1)] for m in range(len(items) + 1)]
     i = len(items)
