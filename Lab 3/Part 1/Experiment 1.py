@@ -7,13 +7,12 @@ from knapsack import *
 import matplotlib.pyplot as plot
 
 
-def plotExp1Results(test_runs, average_runs, increaseItemFactor):
-    weightMin = 20
-    weightMax = 75
-    valueMin = 1000
-    valueMax = 2000
+def plotExpResults(test_runs, average_runs, increaseItemFactor, minW, maxW, minVal, maxVal):
+    weightMin = minW
+    weightMax = maxW
+    valueMin = minVal
+    valueMax = maxVal
     numItems = 0
-    capacity = 0
 
     # lists to store the average runtimes computed for each knapsack alg
     brute_forceTimes = []
@@ -25,6 +24,7 @@ def plotExp1Results(test_runs, average_runs, increaseItemFactor):
         L_items = createRandomTupleSet(numItems, valueMin, valueMax, weightMin, weightMax)
         brute_forceTimeSum = 0
         recTimeSum = 0
+        capacity = random.randint(minW, maxW)
 
         for avg_run in range(average_runs):
             start_time = timeit.default_timer()
@@ -58,5 +58,9 @@ def plotExp1Results(test_runs, average_runs, increaseItemFactor):
     plot.show()
 
 
-plotExp1Results(5, 5, 1)
-plotExp1Results(15, 5, 1)
+
+
+
+plotExpResults(5, 5, 1, 20, 75, 1000, 2000)
+plotExpResults(10, 2, 2, 50, 100, 3000, 5000)
+#plotExpResults(15, 5, 5, 20, 75, 1000, 2000)
