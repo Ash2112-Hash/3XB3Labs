@@ -3,27 +3,25 @@ import random
 import itertools
 
 
-def createRandomTupleSet(numElms, valMin, valMax, weightMin, weightMax):
-    rand_set = []
+def createRandomTupleList(numElms, valMin, valMax, weightMin, weightMax):
+    rand_list = []
 
     for _ in range(numElms):
         rand_W = random.randint(weightMin, weightMax)
         rand_val = random.randint(valMin, valMax)
-
-        if (rand_val, rand_W) in rand_set or (rand_W, rand_val) in rand_set:
+        
+        if (rand_val, rand_W) in rand_list or (rand_W, rand_val) in rand_list:
 
             while True:
                 NewRand_W = random.randint(weightMin, weightMax)
                 NewRand_val = random.randint(valMin, valMax)
 
                 if (rand_W, rand_val) != (NewRand_W, NewRand_val):
-                    rand_set.append((NewRand_W, NewRand_val))
+                    rand_list.append((NewRand_W, NewRand_val))
 
-        rand_set.append((rand_W, rand_val))
+        rand_list.append((rand_W, rand_val))
 
-    return rand_set
-
-
+    return rand_list
 
 def ks_brute_force(items, capacity):
     max_val = 0
@@ -45,8 +43,6 @@ def ks_brute_force(items, capacity):
 
     return max_val
 
-
-
 def ks_rec(items, capacity):
     i = len(items)
     j = capacity
@@ -65,7 +61,43 @@ def ks_rec(items, capacity):
         else:
             return max(ks_rec(items[:-1], j), (ks_rec(items[:-1], j - items[i - 1][0]) + items[i - 1][1]))
 
+def ks_top_down(items, capacity):
+    matrix = [[-1 for n in range(capacity + 1)] for m in range(len(items) + 1)]
+    i = len(items)
 
+    def knapsack(capacity, i):
+        # base cases
+        if i == 0 or capacity == 0:
+            return 0
+        if matrix[i][capacity] != -1:
+            return matrix[i][capacity]   
+        # returning value of current item if previous item's weight that is less the capacity
+        if items[i-1][0] <= capacity:
+            matrix[i][capacity] = max(items[i-1][1] + knapsack(capacity - items[i-1][0], i-1), knapsack(capacity, i-1))
+            return matrix[i][capacity]
+        # returning value of current item if previous item's weight that is more the capacity
+        else:
+            matrix[i][capacity] = knapsack(capacity, i-1)
+            return matrix[i][capacity]
+    return knapsack(capacity, i)
+
+def ks_bottom_up(items, capacity):
+    # create matrix from 0 to capacity for columns and 0 to length of item list for rows
+    matrix = [[0 for j in range(capacity + 1)] for i in range(len(items) + 1)]
+    
+    for value in range(len(items) + 1):
+        for weight in range(capacity + 1):
+            # base cases (when there is no weight or value, the profit is 0)
+            if value == 0 or weight == 0:
+                matrix[value][weight] = 0
+            # filling in table for items that have previous weights that are less the current capacity
+            elif items[value - 1][0] <= weight:
+                matrix[value][weight] = max(items[value - 1][1] + matrix[value - 1][weight - items[value - 1][0]], matrix[value - 1][weight])
+            # same as previous value if weight of item being checked is more than the current capacity (column)
+            else:
+                matrix[value][weight] = matrix[value - 1][weight]
+
+    return matrix[len(items)][capacity]
 
 # TODO TESTING, remove later
 """
