@@ -8,22 +8,23 @@ from knapsack import *
 import matplotlib.pyplot as plot
 
 
-# function which plots the
+# function which plots the runtimes results comparing the brute-force and recursive knapsack algorithm
 def plotExpResults(test_runs, average_runs, increaseItemFactor, minW, maxW, minVal, maxVal):
     weightMin = minW
     weightMax = maxW
     valueMin = minVal
     valueMax = maxVal
     numItems = 0
+    capacity = (maxW + (maxW + 1000))/2
+    # parameters for generating the random list
 
     # lists to store the average runtimes computed for each knapsack alg
     brute_forceTimes = []
     rec_Times = []
     item_lens = []
-    capacity = (maxW + (maxW + 1000))/2
-    #print(capacity)
 
-    # iterates over the specified number of test runs, creates a new
+    # iterates over the specified number of test runs, creates a new random item list and measures the average runtime of each algorithm
+    # adds the measured runtime to each corresponding result list
     for num in range(test_runs):
         L_items = createRandomTupleList(numItems, valueMin, valueMax, weightMin, weightMax)
         brute_forceTimeSum = 0
@@ -45,13 +46,10 @@ def plotExpResults(test_runs, average_runs, increaseItemFactor, minW, maxW, minV
         brute_forceTimes.append(brute_forceTimeSum / average_runs)
         rec_Times.append(recTimeSum / average_runs)
 
-        print(item_lens)
-        print(rec_Times)
-        print(brute_forceTimes)
-
-        # increases the list's capacity by a corresponding factor
+        # increases the list's item size by a corresponding factor
         numItems += increaseItemFactor
 
+    #finally, plot the resulting runtimes against item sizes
     plot.plot(item_lens, brute_forceTimes, label='Brute Force Algorithm')
     plot.plot(item_lens, rec_Times, label='Recursive Algorithm')
     plot.legend(loc='upper left', title='Knapsack Algorithms', fontsize=10)
@@ -60,6 +58,6 @@ def plotExpResults(test_runs, average_runs, increaseItemFactor, minW, maxW, minV
     plot.title("Recursive vs. Brute Force Knapsack Algorithm")
     plot.show()
 
-
+# Conduct the two test cases
 plotExpResults(5, 5, 1, 20, 75, 1000, 2000)
 plotExpResults(20, 5, 1, 20, 75, 1000, 2000)
