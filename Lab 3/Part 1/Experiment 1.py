@@ -2,11 +2,13 @@
 Functions and cases to test and compare brute force and recursive knapsack solutions.
 """
 
+# import libraries needed for experiments
 import timeit
 from knapsack import *
 import matplotlib.pyplot as plot
 
 
+# function which plots the
 def plotExpResults(test_runs, average_runs, increaseItemFactor, minW, maxW, minVal, maxVal):
     weightMin = minW
     weightMax = maxW
@@ -18,13 +20,14 @@ def plotExpResults(test_runs, average_runs, increaseItemFactor, minW, maxW, minV
     brute_forceTimes = []
     rec_Times = []
     item_lens = []
+    capacity = (maxW + (maxW + 1000))/2
+    #print(capacity)
 
-    # iterates over the specified number of test runs, creates a new list in each run and conducts average runs for each of the 3 sorting algorithms against the list (in each iteration)
+    # iterates over the specified number of test runs, creates a new
     for num in range(test_runs):
-        L_items = createRandomTupleSet(numItems, valueMin, valueMax, weightMin, weightMax)
+        L_items = createRandomTupleList(numItems, valueMin, valueMax, weightMin, weightMax)
         brute_forceTimeSum = 0
         recTimeSum = 0
-        capacity = random.randint(minW, maxW)
 
         for avg_run in range(average_runs):
             start_time = timeit.default_timer()
@@ -58,9 +61,5 @@ def plotExpResults(test_runs, average_runs, increaseItemFactor, minW, maxW, minV
     plot.show()
 
 
-
-
-
 plotExpResults(5, 5, 1, 20, 75, 1000, 2000)
-plotExpResults(10, 2, 2, 50, 100, 3000, 5000)
-#plotExpResults(15, 5, 5, 20, 75, 1000, 2000)
+plotExpResults(20, 5, 1, 20, 75, 1000, 2000)
