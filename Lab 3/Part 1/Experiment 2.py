@@ -74,5 +74,3 @@ def BUvsTD(average_runs):
     plot.ylabel('Runtime (seconds)')
     plot.title("Runtime vs Number of Items")
     plot.show()
-
-TDvsBU(7)
