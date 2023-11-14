@@ -12,17 +12,6 @@ def createRandomTupleList(numElms, valMin, valMax, weightMin, weightMax):
         rand_W = random.randint(weightMin, weightMax)
         rand_val = random.randint(valMin, valMax)
         # generates the random weight and value for items
-        
-        if (rand_val, rand_W) in rand_list or (rand_W, rand_val) in rand_list:
-            # verifies the item is not already within the list
-            # if already in list, generate a new value and weight to store within list
-
-            while True:
-                NewRand_W = random.randint(weightMin, weightMax)
-                NewRand_val = random.randint(valMin, valMax)
-
-                if (rand_W, rand_val) != (NewRand_W, NewRand_val):
-                    rand_list.append((NewRand_W, NewRand_val))
 
         rand_list.append((rand_W, rand_val))
 
