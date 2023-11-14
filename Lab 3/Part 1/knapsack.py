@@ -116,24 +116,3 @@ def ks_bottom_up(items, capacity):
     return matrix[len(items)][capacity]
 
 
-# TODO TESTING, remove later
-"""
-L = [1, 2, 3]
-print(L[:-1])
-
-
-for i in range(20):
-    items = createRandomTupleList(10, 0, 50, 20, 50)
-    result = ks_rec(items, 25)
-    result2 = ks_brute_force(items, 25)
-    print("Maximum value:", result)
-    print("Maximum value:", result2)
-    assert result == result2
-
-
-items = createRandomTupleList(10, 0, 50, 20, 50)
-result = ks_rec(items, 10)
-print("Maximum value:", result)
-result2 = ks_brute_force(items, 10)
-print("Maximum value:", result2)
-"""
