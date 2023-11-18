@@ -23,14 +23,15 @@ def dijkstra_approx(G, source, k):
                 Q.decrease_key(neighbour, dist[current_node] + G.w(current_node, neighbour))
                 dist[neighbour] = dist[current_node] + G.w(current_node, neighbour)
 
-        relaxedCount-=1
+        relaxedCount -= 1
 
     return dist
 
 
-
-G = create_random_complete_graph(10, 200)
-print(G.adj)
-print(G.weights)
-print(dijkstra(G, 0))
-print(dijkstra_approx(G, 0, 1))
+for _ in range(100):
+    G = create_random_complete_graph(10, 200)
+    print(G.adj)
+    print(G.weights)
+    print(dijkstra(G, 0))
+    print(dijkstra_approx(G, 0, 1))
+    assert dijkstra(G, 0) != dijkstra_approx(G, 0, 1)
