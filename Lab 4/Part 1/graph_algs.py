@@ -21,14 +21,16 @@ def dijkstra_approx(G, source, k):
 
         if relaxedCount[current_node] < k:
             for neighbour in G.adj[current_node]:
-                if (dist[current_node] + G.w(current_node, neighbour)) < dist[neighbour]:
+                if (dist[current_node] + G.w(current_node, neighbour)) < dist[neighbour] and relaxedCount[neighbour] < k:
                     Q.decrease_key(neighbour, dist[current_node] + G.w(current_node, neighbour))
                     dist[neighbour] = dist[current_node] + G.w(current_node, neighbour)
                     relaxedCount[neighbour] += 1
         else:
             continue
 
-    return dist
+    #print("track relax node count:", relaxedCount)
+    #print("node distances: ", dist)
+    return [dist, relaxedCount]
 
 
 def bellman_ford_approx(G, source, k):
@@ -41,26 +43,38 @@ def bellman_ford_approx(G, source, k):
         relaxedCount[node] = 0
     dist[source] = 0
 
-    for _ in range(G.number_of_nodes()):
+    for _ in range(G.number_of_nodes()):   #TODO confirm if this needs to be replaced by k
         for node in G_nodes:
             if relaxedCount[node] < k:
                 for neighbour in G.adj[node]:
-                    if dist[neighbour] > dist[node] + G.w(node, neighbour):
+                    if dist[neighbour] > dist[node] + G.w(node, neighbour) and relaxedCount[neighbour] < k:
                         dist[neighbour] = dist[node] + G.w(node, neighbour)
                         relaxedCount[neighbour] += 1
             else:
                 continue
 
-    return dist
+    #print("track relax node count:", relaxedCount)
+    #print("node distances: ", dist)
+    return [dist, relaxedCount]
 
 
 
 """TESTING"""
-for _ in range(100):
-    G = create_random_complete_graph(10, 200)
-    print(G.adj)
-    print(G.weights)
+for _ in range(5):
+    G = create_random_complete_graph(20, 200)
+    r = dijkstra_approx(G, 0, 1)
+
+    #for i in r[1].values():
+     #   print(i)
+      #  assert not i > 3
+
+
     print(dijkstra(G, 0))
-    print(dijkstra_approx(G, 0, 1))
-    print(bellman_ford_approx(G, 0, 1))
-    assert dijkstra(G, 0) != dijkstra_approx(G, 0, 1)
+    print(r[0])
+    #print(bellman_ford_approx(G, 0, 3))
+    #print(G.adj)
+    #print(G.weights)
+    #print(dijkstra(G, 0))
+    #print(dijkstra_approx(G, 0, 1))
+    #print(bellman_ford_approx(G, 0, 1))
+    #assert dijkstra(G, 0) != dijkstra_approx(G, 0, 1)
