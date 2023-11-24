@@ -30,7 +30,7 @@ def dijkstra_approx(G, source, k):
 
     #print("track relax node count:", relaxedCount)
     #print("node distances: ", dist)
-    return [dist, relaxedCount]
+    return dist
 
 
 def bellman_ford_approx(G, source, k):
@@ -55,22 +55,21 @@ def bellman_ford_approx(G, source, k):
 
     #print("track relax node count:", relaxedCount)
     #print("node distances: ", dist)
-    return [dist, relaxedCount]
+    return dist
 
 
-
-"""TESTING"""
-for _ in range(5):
+"""
+#TESTING
+for _ in range(1):
     G = create_random_complete_graph(20, 200)
-    r = dijkstra_approx(G, 0, 1)
-
-    #for i in r[1].values():
-     #   print(i)
-      #  assert not i > 3
-
-
     print(dijkstra(G, 0))
-    print(r[0])
+
+    print(total_dist(dijkstra(G, 0)))
+    print(total_dist(dijkstra_approx(G, 0, 2)))
+    #r = dijkstra_approx(G, 0, 1)
+
+    #print(dijkstra(G, 0))
+    #print(r[0])
     #print(bellman_ford_approx(G, 0, 3))
     #print(G.adj)
     #print(G.weights)
@@ -78,3 +77,4 @@ for _ in range(5):
     #print(dijkstra_approx(G, 0, 1))
     #print(bellman_ford_approx(G, 0, 1))
     #assert dijkstra(G, 0) != dijkstra_approx(G, 0, 1)
+"""
