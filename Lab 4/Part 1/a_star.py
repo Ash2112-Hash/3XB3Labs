@@ -14,7 +14,7 @@ def total_cost(h, dist, node_cost):
     for node in sorted_dict:
         return node[0]
 
-# using Dijkstra's with an addition of h 
+# using Dijkstra's with an addition of the heuristic 
 def a_star(G, s, d, h):
     pred = {}
     dist = {}
