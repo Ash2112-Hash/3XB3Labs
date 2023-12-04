@@ -7,7 +7,7 @@ def total_cost(h, dist, node_cost):
     for i in node_cost:
         cost[node_cost[i]] = dist[node_cost[i]] + h[node_cost[i]]
 
-    # sort nodes by second element which contains the total cost 
+    # sort nodes by dictionary value which contains the total cost 
     sorted_dict = sorted(cost.items(), key=lambda cost: cost[1])
 
     # loop through the sorted dictionary and only extract the node number
