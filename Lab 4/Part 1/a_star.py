@@ -2,17 +2,20 @@ from final_project_part1 import *
 
 def total_cost(h, dist, node_cost):
     cost = {}
+    cost_order = []
 
     # add the distance and heuristic function
     for i in node_cost:
-        cost[node_cost[i]] = dist[node_cost[i]] + h[node_cost[i]]
+        cost[i] = dist[i] + h[i]
 
     # sort nodes by dictionary value which contains the total cost 
     sorted_dict = sorted(cost.items(), key=lambda cost: cost[1])
 
     # loop through the sorted dictionary and only extract the node number
     for node in sorted_dict:
-        return node[0]
+        cost_order.append(node)
+
+    return cost_order
 
 # using Dijkstra's with an addition of the heuristic 
 def a_star(G, s, d, h):
