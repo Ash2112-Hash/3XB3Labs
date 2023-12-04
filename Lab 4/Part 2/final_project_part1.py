@@ -114,12 +114,3 @@ def init_d(G):
                 d[i][j] = G.w(i, j)
         d[i][i] = 0
     return d
-
-
-
-"""
-G = create_random_complete_graph(5, 10)
-G2 = create_random_complete_graph(10, 100)
-
-print(G.adj)
-print(G2.adj)"""
