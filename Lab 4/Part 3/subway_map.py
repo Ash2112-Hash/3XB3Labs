@@ -51,6 +51,23 @@ def distance(station_list, station1, station2):
     distance = math.sqrt((lat2-lat1)**2 + (long2-long1)**2)
     return distance
 
+""" def heuristic(station_list):
+    heuristics = {}
+
+    for i in station_list:
+        for j in station_list:
+            cost = distance(station_list, i[0], j[0])
+        heuristics[i] = cost
+
+    return heuristics
+
+def all_pairs_shortest_path(station):
+    all_pairs = {}
+
+    for node in station:
+
+    return  """
+
 def main():
     filepath1 = Path(__file__).parent / "london_connections.csv"
     filepath2 = Path(__file__).parent / "london_stations.csv"
@@ -89,5 +106,4 @@ def main():
 
     print("Subway map initialized")
 
-    
 main()
