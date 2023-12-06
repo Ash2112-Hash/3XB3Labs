@@ -7,9 +7,16 @@ import timeit
 
 def main():
     subway_graph = create()
-    heuristics = heuristic(subway_graph[1])
-    # all_pairs_test(subway_graph[0], subway_graph[1], heuristics)
-    same_line_test(subway_graph[0], heuristics, subway_graph[2], 9) # 9 is arbitrarily chosen
+    graph = subway_graph[0]
+    station_list = subway_graph[1]
+    lines = subway_graph[2]
+    heuristics = heuristic(station_list)
+    all_pairs_test(graph, station_list, heuristics)
+    same_line_test(graph, heuristics, lines, 9) # 9 is arbitrarily chosen
+    adj_line(2, 3, lines) # test case, evaluates to True
+    adj_line_test(graph, heuristics, lines, 3) # since it is adjacent to line 2
+    transfer(lines, 193) # test case, evaluates to 4
+    transfer_lines_test(graph, heuristics, lines, 5, 193) # line 5 is one of the lines station 193 is on
 
 # all pairs of A*
 def all_pairs_a_star(graph, station, heuristic_dict): # use an index of the heuristic
@@ -68,20 +75,29 @@ def adj_line(lineOne, lineTwo, lines):
         return True
     return False
 
-# on multiple transfer
-def check_num_transfers(path, edges):
-    prev = -1
-    counter = -1
-    for i in range(len(path) - 1):
-        node1 = path[i]
-        node2 = path[i+1]
-        for x in edges:
-            if (node1 == int(x[0]) and node2 == int(x[1])) or (node2 == int(x[0]) and node1 == int(x[1])):
-                if int(x[2]) != prev:
-                    counter += 1
-                prev = int(x[2])
-                break
+# on transfer lines
+def transfer(lines, station_num):
+    j = station_num
+    counter = 0
+    for i in lines.keys():
+        if j in lines.get(i):
+            counter += 1
     return counter
+
+# # number of transfers path takes
+# def num_transfers(path, edges):
+#     prev = -1
+#     counter = -1
+#     for i in range(len(path) - 1):
+#         node1 = path[i]
+#         node2 = path[i+1]
+#         for x in edges:
+#             if (node1 == int(x[0]) and node2 == int(x[1])) or (node2 == int(x[0]) and node1 == int(x[1])):
+#                 if int(x[2]) != prev:
+#                     counter += 1
+#                 prev = int(x[2])
+#                 break
+#     return counter
 
 def total_cost(h, dist, node_cost):
     cost = {}
@@ -129,22 +145,23 @@ def a_star(G, s, d, h):
                 pred[neighbour] = current_node
     return dist
 
-# def all_pairs_test(graph, station, heuristic_dict):
-#     start_time = timeit.default_timer()
-#     all_pairs_a_star(graph, station, heuristic_dict)
-#     end_time = timeit.default_timer()
-#     a_star_time = end_time - start_time
+# tests
+def all_pairs_test(graph, station, heuristic_dict):
+    start_time = timeit.default_timer()
+    all_pairs_a_star(graph, station, heuristic_dict)
+    end_time = timeit.default_timer()
+    a_star_time = end_time - start_time
 
-#     start_time = timeit.default_timer()
-#     all_pairs_dijkstra(graph, station)
-#     end_time = timeit.default_timer()
-#     dijkstra_time = end_time - start_time
+    start_time = timeit.default_timer()
+    all_pairs_dijkstra(graph, station)
+    end_time = timeit.default_timer()
+    dijkstra_time = end_time - start_time
 
-#     print("a star all pairs shortest path time:", a_star_time, "seconds")
-#     print("dijkstra all pairs shortest path time:", dijkstra_time, "seconds")
+    print("a star all pairs shortest path time:", a_star_time, "seconds")
+    print("dijkstra all pairs shortest path time:", dijkstra_time, "seconds")
 
 def same_line_test(graph, heuristic_dict, lines, line_num):
-    random_station = 277 # station on line 9
+    random_station = 277 # station on line 9, start station
     stations_visited = random.sample(list(lines[line_num]), 10)
 
     a_star_time = []
@@ -175,6 +192,74 @@ def same_line_test(graph, heuristic_dict, lines, line_num):
     plot.xlabel('Station Number')
     plot.ylabel('Runtime (seconds)')
     plot.title("Runtime vs Station on Same Line")
+    plot.show()
+
+def adj_line_test(graph, heuristic_dict, lines, line_num):
+    random_station = 76 # station on line 2, start station
+    stations_visited = random.sample(list(lines[line_num]), 10)
+
+    a_star_time = []
+    dijkstra_time = []
+    a_star_sum = 0
+    dijkstra_sum = 0
+
+    print(stations_visited)
+    for n in stations_visited:
+        a_star_sum, dijkstra_sum = 0, 0
+
+        start_time = timeit.default_timer()
+        a_star(graph, random_station, n, heuristic_dict[n])
+        end_time = timeit.default_timer()
+        a_star_sum += (end_time - start_time)
+
+        start_time = timeit.default_timer()
+        dijkstra(graph, random_station)
+        end_time = timeit.default_timer()
+        dijkstra_sum += (end_time - start_time)
+
+        a_star_time.append(a_star_sum)
+        dijkstra_time.append(dijkstra_sum)
+
+    plot.plot([str(i) for i in stations_visited], a_star_time, label = 'A*')
+    plot.plot([str(i) for i in stations_visited], dijkstra_time, label = 'Dijkstra')
+    plot.legend(loc = 'upper left', title = 'Algorithms', fontsize = 10)
+    plot.xlabel('Station Number')
+    plot.ylabel('Runtime (seconds)')
+    plot.title("Runtime vs Station on Adjacent Lines")
+    plot.show()
+
+def transfer_lines_test(graph, heuristic_dict, lines, line_num, station_num):
+    start_station = station_num
+    stations_visited = random.sample(list(lines[line_num]), 5)
+
+    a_star_time = []
+    dijkstra_time = []
+    a_star_sum = 0
+    dijkstra_sum = 0
+
+    print(stations_visited)
+    for n in stations_visited:
+        a_star_sum, dijkstra_sum = 0, 0
+
+        start_time = timeit.default_timer()
+        a_star(graph, start_station, n, heuristic_dict[n])
+        end_time = timeit.default_timer()
+        a_star_sum += (end_time - start_time)
+
+        start_time = timeit.default_timer()
+        dijkstra(graph, start_station)
+        end_time = timeit.default_timer()
+        dijkstra_sum += (end_time - start_time)
+
+        a_star_time.append(a_star_sum)
+        dijkstra_time.append(dijkstra_sum)
+
+    plot.plot([str(i) for i in range(line_num)], a_star_time, label = 'A*')
+    plot.plot([str(i) for i in range(line_num)], dijkstra_time, label = 'Dijkstra')
+    plot.legend(loc = 'upper left', title = 'Algorithms', fontsize = 10)
+    plot.xlabel('Number of Transfers')
+    plot.ylabel('Runtime (seconds)')
+    plot.title("Runtime vs Station on Transfer Lines")
     plot.show()
 
 if __name__ == "__main__":
