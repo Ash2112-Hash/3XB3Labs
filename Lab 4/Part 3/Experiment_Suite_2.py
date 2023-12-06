@@ -21,11 +21,9 @@ def main():
 # all pairs of A*
 def all_pairs_a_star(graph, station, heuristic_dict): # use an index of the heuristic
     all_pairs = {}
-    print(station)
     for node in station.keys():
         path = {}
         for connected_node in station.keys():
-            # print(f"A star node: {station[node][0]} to end: {station[connected_node][0]}")
             pairs = a_star(graph, int(station[node][0]), int(station[connected_node][0]), heuristic_dict[connected_node])
             path[connected_node] = pairs
         all_pairs[node] = path
@@ -169,7 +167,6 @@ def same_line_test(graph, heuristic_dict, lines, line_num):
     a_star_sum = 0
     dijkstra_sum = 0
 
-    print(stations_visited)
     for n in stations_visited:
         a_star_sum, dijkstra_sum = 0, 0
 
@@ -203,7 +200,6 @@ def adj_line_test(graph, heuristic_dict, lines, line_num):
     a_star_sum = 0
     dijkstra_sum = 0
 
-    print(stations_visited)
     for n in stations_visited:
         a_star_sum, dijkstra_sum = 0, 0
 
@@ -230,14 +226,14 @@ def adj_line_test(graph, heuristic_dict, lines, line_num):
 
 def transfer_lines_test(graph, heuristic_dict, lines, line_num, station_num):
     start_station = station_num
-    stations_visited = random.sample(list(lines[line_num]), 5)
+    transfers = 5
+    stations_visited = random.sample(list(lines[line_num]), transfers)
 
     a_star_time = []
     dijkstra_time = []
     a_star_sum = 0
     dijkstra_sum = 0
 
-    print(stations_visited)
     for n in stations_visited:
         a_star_sum, dijkstra_sum = 0, 0
 
@@ -254,8 +250,8 @@ def transfer_lines_test(graph, heuristic_dict, lines, line_num, station_num):
         a_star_time.append(a_star_sum)
         dijkstra_time.append(dijkstra_sum)
 
-    plot.plot([str(i) for i in range(line_num)], a_star_time, label = 'A*')
-    plot.plot([str(i) for i in range(line_num)], dijkstra_time, label = 'Dijkstra')
+    plot.plot([str(i) for i in range(transfers)], a_star_time, label = 'A*')
+    plot.plot([str(i) for i in range(transfers)], dijkstra_time, label = 'Dijkstra')
     plot.legend(loc = 'upper left', title = 'Algorithms', fontsize = 10)
     plot.xlabel('Number of Transfers')
     plot.ylabel('Runtime (seconds)')
