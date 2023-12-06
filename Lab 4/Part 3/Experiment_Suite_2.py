@@ -10,16 +10,17 @@ def main():
     graph = subway_graph[0]
     station_list = subway_graph[1]
     lines = subway_graph[2]
+    transfer = subway_graph[3]
     heuristics = heuristic(station_list)
     all_pairs_test(graph, station_list, heuristics)
     same_line_test(graph, heuristics, lines, 9) # 9 is arbitrarily chosen
     adj_line(2, 3, lines) # test case, evaluates to True
     adj_line_test(graph, heuristics, lines, 3) # since it is adjacent to line 2
-    num_transfer(lines, 193) # test case, evaluates to 4
+    transfer(lines, 193) # test case, evaluates to 4
     transfer_lines_test(graph, heuristics, lines, 5, 193) # line 5 is one of the lines station 193 is on
 
 # all pairs of A*
-def all_pairs_a_star(graph, station, heuristic_dict): # use an index of the heuristic
+def all_pairs_a_star(graph, station, heuristic_dict):
     all_pairs = {}
     for node in station.keys():
         path = {}
@@ -45,12 +46,27 @@ def adj_line(lineOne, lineTwo, lines):
     return False
 
 # on transfer lines, counting number of transfers
-def num_transfer(lines, station_num):
+def transfer(lines, station_num):
     j = station_num
     counter = 0
     for i in lines.keys():
         if j in lines.get(i):
             counter += 1
+    return counter
+
+def num_of_transfers(path, transfer):
+    counter = -1 # offset to account for the line it is on initially
+    line_num = 0 # to keep track of which line it is on 
+
+    for i in range(len(path) - 1):
+        station1 = path[i]
+        station2 = path[i + 1]
+        for _ in transfer:
+            if (((station1 == int(transfer[i][0])) or (station2 == int(transfer[i][0]))) and ((station2 == int(transfer[i][1])) or (station1 == int(transfer[i][1])))):
+                if (int(transfer[i][2])) != line_num:
+                    counter += 1
+                line_num = int(transfer[i][2])
+                break
     return counter
 
 # tests

@@ -55,6 +55,7 @@ def create():
 
     station_list = {}
     lines = {}
+    transfer = []
     stations = csv.reader(file2)
     next(stations, None) #skips header
     for row in stations:
@@ -75,6 +76,7 @@ def create():
         station1 = station_list[int(connect[0])]
         station2 = station_list[int(connect[1])]
         line = int(connect[2])
+        transfer.append([station1, station2, line])
         if line not in lines:
             lines[line] = set()
         lines[line].add(int(connect[0]))
@@ -82,4 +84,4 @@ def create():
         weight = distance(station1, station2)
         subway.add_edge(int(station1[0]), int(station2[0]), weight)
     
-    return (subway, station_list, lines)
+    return (subway, station_list, lines, transfer)
