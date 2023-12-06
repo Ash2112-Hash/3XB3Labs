@@ -1,11 +1,14 @@
 from final_project_part1 import *
 
+# NOTE: for the relaxation, although the neighbor nodes are relaxed during inner if of each approximation,
+# the iteration of the graph going through all paths will still cover the current node and return a path where each node has been visited a max of k times. This was confirmed with one of the TAs
 
+# Dijkstra approx function which relaxes each node a maximum of k times
 def dijkstra_approx(G, source, k):
     dist = {}
     Q = min_heap.MinHeap([])
     G_nodes = list(G.adj.keys())
-    relaxedCount = {}
+    relaxedCount = {} # keeps track of relaxed nodes
 
     for node in G_nodes:
         Q.insert(min_heap.Element(node, float("inf")))
@@ -18,20 +21,22 @@ def dijkstra_approx(G, source, k):
         current_node = current_element.value
         dist[current_node] = current_element.key
 
-        if relaxedCount[current_node] < k:
+        if relaxedCount[current_node] < k:  # ensures the current node has not been relaxed
             for neighbour in G.adj[current_node]:
                 if (dist[current_node] + G.w(current_node, neighbour)) < dist[neighbour] and relaxedCount[neighbour] < k:
                     Q.decrease_key(neighbour, dist[current_node] + G.w(current_node, neighbour))
                     dist[neighbour] = dist[current_node] + G.w(current_node, neighbour)
-                    relaxedCount[neighbour] += 1
+                    relaxedCount[neighbour] += 1    # if neighbor has been relaxed, increase the relaxation count
         else:
             continue
 
     # print("track relax node count:", relaxedCount)
     # print("node distances: ", dist)
+    #print(relaxedCount)
     return dist
 
 
+# Bellman Ford approx function which relaxes each node a maximum of k times
 def bellman_ford_approx(G, source, k):
     dist = {}
     G_nodes = list(G.adj.keys())
@@ -42,21 +47,24 @@ def bellman_ford_approx(G, source, k):
         relaxedCount[node] = 0
     dist[source] = 0
 
-    for _ in range(G.number_of_nodes()):  # TODO confirm if this needs to be replaced by k or num-1?
+    for _ in range(G.number_of_nodes()):
         for node in G_nodes:
-            if relaxedCount[node] < k:
+            if relaxedCount[node] < k:   # ensures the current node has not been relaxed
                 for neighbour in G.adj[node]:
                     if dist[neighbour] > dist[node] + G.w(node, neighbour) and relaxedCount[neighbour] < k:
                         dist[neighbour] = dist[node] + G.w(node, neighbour)
-                        relaxedCount[neighbour] += 1
+                        relaxedCount[neighbour] += 1    # if neighbor node has been relaxed, increase the relaxation count
             else:
                 continue
 
     # print("track relax node count:", relaxedCount)
     # print("node distances: ", dist)
+    # print(relaxedCount)
     return dist
 
 
+# custom function (made during lab 2) to generate a random non-complete directed graph
+# used to keep size of graph constant but increase density as in procedure 2
 def generateNonComplete_RandomDirectedGraph(node_count, edge_count, weightMax):
     rand_graph = DirectedWeightedGraph()
 
@@ -78,7 +86,14 @@ def generateNonComplete_RandomDirectedGraph(node_count, edge_count, weightMax):
     return rand_graph
 
 
+# TESTING
 """
+G = create_random_complete_graph(20, 200)
+print(dijkstra_approx(G, 0, 2))
+
+G = create_random_complete_graph(20, 200)
+print(bellman_ford_approx(G, 0, 2))
+
 G = generateNonComplete_RandomDirectedGraph(5, 10, 10)
 print(dijkstra(G, 0))
 
