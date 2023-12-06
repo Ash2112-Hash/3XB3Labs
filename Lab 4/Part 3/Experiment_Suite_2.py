@@ -1,6 +1,6 @@
 from subway_map import *
 from final_project_part1 import *
-import algorithms
+from algorithms import *
 import matplotlib.pyplot as plot
 import random
 import timeit
