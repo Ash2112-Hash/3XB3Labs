@@ -15,7 +15,7 @@ def main():
     same_line_test(graph, heuristics, lines, 9) # 9 is arbitrarily chosen
     adj_line(2, 3, lines) # test case, evaluates to True
     adj_line_test(graph, heuristics, lines, 3) # since it is adjacent to line 2
-    transfer(lines, 193) # test case, evaluates to 4
+    num_transfer(lines, 193) # test case, evaluates to 4
     transfer_lines_test(graph, heuristics, lines, 5, 193) # line 5 is one of the lines station 193 is on
 
 # all pairs of A*
@@ -73,29 +73,14 @@ def adj_line(lineOne, lineTwo, lines):
         return True
     return False
 
-# on transfer lines
-def transfer(lines, station_num):
+# on transfer lines, counting number of transfers
+def num_transfer(lines, station_num):
     j = station_num
     counter = 0
     for i in lines.keys():
         if j in lines.get(i):
             counter += 1
     return counter
-
-# # number of transfers path takes
-# def num_transfers(path, edges):
-#     prev = -1
-#     counter = -1
-#     for i in range(len(path) - 1):
-#         node1 = path[i]
-#         node2 = path[i+1]
-#         for x in edges:
-#             if (node1 == int(x[0]) and node2 == int(x[1])) or (node2 == int(x[0]) and node1 == int(x[1])):
-#                 if int(x[2]) != prev:
-#                     counter += 1
-#                 prev = int(x[2])
-#                 break
-#     return counter
 
 def total_cost(h, dist, node_cost):
     cost = {}
