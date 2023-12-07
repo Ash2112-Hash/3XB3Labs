@@ -61,11 +61,11 @@ def num_of_transfers(path, transfer):
     for i in range(len(path) - 1):
         station1 = path[i]
         station2 = path[i + 1]
-        for _ in transfer:
-            if (((station1 == int(transfer[i][0])) or (station2 == int(transfer[i][0]))) and ((station2 == int(transfer[i][1])) or (station1 == int(transfer[i][1])))):
-                if (int(transfer[i][2])) != line_num:
+        for j in transfer:
+            if (((station1 == int(transfer[j][0])) or (station2 == int(transfer[j][0]))) and ((station2 == int(transfer[j][1])) or (station1 == int(transfer[j][1])))):
+                if (int(transfer[j][2])) != line_num:
                     counter += 1
-                line_num = int(transfer[i][2])
+                line_num = int(transfer[j][2])
                 break
     return counter
 
