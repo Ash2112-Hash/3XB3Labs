@@ -1,5 +1,7 @@
 import min_heap
 
+from final_project_part1 import *
+
 def total_cost(h, dist, node_cost):
     cost = {}
     cost_order = []
@@ -44,7 +46,14 @@ def a_star(G, s, d, h):
                 Q.decrease_key(neighbour, dist[current_node] + G.w(current_node, neighbour))
                 dist[neighbour] = dist[current_node] + G.w(current_node, neighbour)
                 pred[neighbour] = current_node
-    return dist
+
+    path, current_node = [], d
+    while current_node and current_node != s:
+        path.append(current_node)
+        current_node = pred.get(current_node, None)
+    path = path[::-1]
+
+    return (pred, path)
 
 # new Dijkstra testing for same line
 def new_dijkstra(G, source, destination):

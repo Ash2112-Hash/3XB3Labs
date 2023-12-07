@@ -13,7 +13,7 @@ def total_cost(h, dist, node_cost):
 
     # loop through the sorted dictionary and only extract the node number
     for node in sorted_dict:
-        cost_order.append(node)
+        cost_order.append(node[0])
 
     return cost_order
 
