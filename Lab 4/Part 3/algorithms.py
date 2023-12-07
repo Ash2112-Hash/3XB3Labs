@@ -17,7 +17,6 @@ def total_cost(h, dist, node_cost):
 
     return cost_order
 
-# using Dijkstra's with an addition of the heuristic 
 def a_star(G, s, d, h):
     pred = {}
     dist = {}
@@ -44,7 +43,44 @@ def a_star(G, s, d, h):
                 Q.decrease_key(neighbour, dist[current_node] + G.w(current_node, neighbour))
                 dist[neighbour] = dist[current_node] + G.w(current_node, neighbour)
                 pred[neighbour] = current_node
+
     return dist
+
+# using Dijkstra's with an addition of the heuristic 
+def a_star_new(G, s, d, h):
+    pred = {}
+    dist = {}
+    Q = min_heap.MinHeap([])
+    nodes = list(G.adj.keys())
+
+    for node in nodes:
+        Q.insert(min_heap.Element(node, float("inf")))
+        dist[node] = float("inf")
+    Q.decrease_key(s, 0)
+
+    while not Q.is_empty():
+        current_element = Q.extract_min()
+        current_node = current_element.value
+        dist[current_node] = current_element.key
+
+        # case where node being searched is starting node
+        if current_node == d:
+            break
+
+        node_path = total_cost(h, dist, G.adj[current_node])
+        for neighbour in node_path:
+            if dist[current_node] + G.w(current_node, neighbour) < dist[neighbour]:
+                Q.decrease_key(neighbour, dist[current_node] + G.w(current_node, neighbour))
+                dist[neighbour] = dist[current_node] + G.w(current_node, neighbour)
+                pred[neighbour] = current_node
+
+    path, current_node = [], d
+    while current_node and current_node != s:
+        path.append(current_node)
+        current_node = pred.get(current_node, None)
+    path = path[::-1]
+
+    return (pred, path)
 
 # new Dijkstra testing for same line
 def new_dijkstra(G, source, destination):
