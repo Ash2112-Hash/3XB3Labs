@@ -55,7 +55,6 @@ def create():
 
     station_list = {}
     lines = {}
-    transfer = []
     stations = csv.reader(file2)
     next(stations, None) #skips header
     for row in stations:
@@ -63,6 +62,7 @@ def create():
         station_list[station_id] = row
     file2.close()
 
+    transfer = []
     connections = csv.reader(file1)
     next(connections, None)
 
@@ -76,7 +76,7 @@ def create():
         station1 = station_list[int(connect[0])]
         station2 = station_list[int(connect[1])]
         line = int(connect[2])
-        transfer.append([station1, station2, line])
+        transfer.append([int(connect[0]), int(connect[1]), int(connect[2])])
         if line not in lines:
             lines[line] = set()
         lines[line].add(int(connect[0]))
