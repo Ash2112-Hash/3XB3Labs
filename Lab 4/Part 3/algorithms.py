@@ -1,5 +1,7 @@
 import min_heap
 
+from final_project_part1 import *
+
 def total_cost(h, dist, node_cost):
     cost = {}
     cost_order = []
@@ -17,6 +19,7 @@ def total_cost(h, dist, node_cost):
 
     return cost_order
 
+# using Dijkstra's with an addition of the heuristic 
 def a_star(G, s, d, h):
     pred = {}
     dist = {}
@@ -40,13 +43,12 @@ def a_star(G, s, d, h):
         node_path = total_cost(h, dist, G.adj[current_node])
         for neighbour in node_path:
             if dist[current_node] + G.w(current_node, neighbour) < dist[neighbour]:
-                Q.decrease_key(neighbour, dist[current_node] + G.w(current_node, neighbour))
+                Q.decrease_key(neighbour, dist[current_node] + G.w(current_node, neighbour) + h[neighbour])
                 dist[neighbour] = dist[current_node] + G.w(current_node, neighbour)
                 pred[neighbour] = current_node
 
     return dist
 
-# using Dijkstra's with an addition of the heuristic 
 def a_star_new(G, s, d, h):
     pred = {}
     dist = {}
@@ -70,7 +72,7 @@ def a_star_new(G, s, d, h):
         node_path = total_cost(h, dist, G.adj[current_node])
         for neighbour in node_path:
             if dist[current_node] + G.w(current_node, neighbour) < dist[neighbour]:
-                Q.decrease_key(neighbour, dist[current_node] + G.w(current_node, neighbour))
+                Q.decrease_key(neighbour, dist[current_node] + G.w(current_node, neighbour) + h[neighbour])
                 dist[neighbour] = dist[current_node] + G.w(current_node, neighbour)
                 pred[neighbour] = current_node
 
