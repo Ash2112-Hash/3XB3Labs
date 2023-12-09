@@ -1,6 +1,6 @@
 import SPAlgorithm, Graph
 
-
+# pathfinder class which uses composition pattenr with graph and SPAlgorithm interfaces
 class ShortPathFinder:
 
     def calc_short_path(self, source: int, dest: int) -> float:

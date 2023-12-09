@@ -2,6 +2,7 @@ from abc import ABC, abstractmethod
 
 import Graph
 
+#SPAlgorithm interface/ABC
 class SPAlgorithm(ABC):
 
     @abstractmethod

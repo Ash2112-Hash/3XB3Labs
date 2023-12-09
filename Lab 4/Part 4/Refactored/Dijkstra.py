@@ -1,6 +1,7 @@
 
 import SPAlgorithm, Graph, min_heap
 
+#Dijkstra class implementing SPAlgorithm interface/ABC
 class Dijkstra(SPAlgorithm):
 
     def calc_sp(self, graph: Graph, source: int, dest: int) -> float:

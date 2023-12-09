@@ -1,6 +1,7 @@
 
 import Graph
 
+# WeightedGraph class implements Graph ABC (interface)
 class WeightedGraph(Graph):
 
     def __init__(self):

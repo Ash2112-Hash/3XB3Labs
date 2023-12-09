@@ -1,7 +1,7 @@
 
 from abc import ABC, abstractmethod
 
-
+# Graph interface/ABC
 class Graph(ABC):
 
     @abstractmethod
@@ -13,15 +13,11 @@ class Graph(ABC):
         pass
 
     @abstractmethod
-    def add_edge(self, start: int, end: int, w: float):
+    def add_edge(self, start: int, end: int):
         pass
 
     @abstractmethod
     def get_num_of_nodes(self) -> int:
-        pass
-
-    @abstractmethod
-    def w(self, node1: int, node2: int) -> float:
         pass
 
 

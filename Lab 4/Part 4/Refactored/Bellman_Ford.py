@@ -1,6 +1,7 @@
 
 import SPAlgorithm, Graph
 
+#BellmanFord class implementing SPAlgorithm interface/ABC
 class Bellman_Ford(SPAlgorithm):
 
     def calc_sp(self, graph: Graph, source: int, dest: int) -> float:
