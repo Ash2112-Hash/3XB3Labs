@@ -16,12 +16,12 @@ def main():
     # # test 1: all-pairs
     # all_pairs_test(graph, station_list, heuristics)
 
-    # # test 2: same line
-    # same_line_test(graph, heuristics, lines, 9) # 9 is arbitrarily chosen
+    # test 2: same line
+    same_line_test(graph, heuristics, lines, 9) # 9 is arbitrarily chosen
 
-    # # test 3: adjacent lines
-    # adj_line(2, 3, lines) # test case, evaluates to True
-    # adj_line_test(graph, heuristics, lines, 3) # since it is adjacent to line 2
+    # test 3: adjacent lines
+    adj_line(2, 3, lines) # test case, evaluates to True
+    adj_line_test(graph, heuristics, lines, 3) # since it is adjacent to line 2
 
     # test 4: multiple transfers
     zero_transfer = a_star_new(subway_graph[0], 294, 138, heuristics[138]) # test case, returns 0
