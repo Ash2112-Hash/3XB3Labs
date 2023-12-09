@@ -13,8 +13,8 @@ def main():
     transfer = subway_graph[3]
     heuristics = heuristic(station_list)
 
-    # # test 1: all-pairs
-    # all_pairs_test(graph, station_list, heuristics)
+    # test 1: all-pairs
+    all_pairs_test(graph, station_list, heuristics)
 
     # test 2: same line
     same_line_test(graph, heuristics, lines, 9) # 9 is arbitrarily chosen

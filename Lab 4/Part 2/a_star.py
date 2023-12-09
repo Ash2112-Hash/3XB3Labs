@@ -41,7 +41,7 @@ def a_star(G, s, d, h):
         node_path = total_cost(h, dist, G.adj[current_node])
         for neighbour in node_path:
             if dist[current_node] + G.w(current_node, neighbour) < dist[neighbour]:
-                Q.decrease_key(neighbour, dist[current_node] + G.w(current_node, neighbour))
+                Q.decrease_key(neighbour, dist[current_node] + G.w(current_node, neighbour) + h[neighbour])
                 dist[neighbour] = dist[current_node] + G.w(current_node, neighbour)
                 pred[neighbour] = current_node
 
